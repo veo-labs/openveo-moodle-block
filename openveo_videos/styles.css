@@ -1,0 +1,6 @@
+/* Block */
+.ov-block-content img{ width: 100%; border: 1px solid #f1f1f1; }
+.ov-block-content img:hover{ width: 100%; border: 1px solid #bbb; }
+
+/* List of videos */
+body{ background-color: orange; }

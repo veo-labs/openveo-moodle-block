@@ -1,0 +1,89 @@
+<?php
+// This file is part of OpenVeo - http://www.veo-labs.com/suite-logicielle-openveo
+//
+// TODO : Add License information here
+
+/**
+ * Presents a video using OpenVeo player.
+ *
+ * It requires a course id, a video id and a user associated to the course to proceed 
+ *
+ * @package block_openveo_videos
+ * @copyright 2015, veo-labs <info@veo-labs.com>
+ * @license TODO
+ */
+
+require_once('../../config.php');
+global $DB, $OUTPUT, $PAGE, $USER, $CFG, $FULLSCRIPT;
+
+/**
+ * Renders the player using embedded OpenVeo player.
+ * 
+ * @param string $videourl The url of the OpenVeo player
+ */
+function block_openveo_videos_render_player($videourl) {
+    global $CFG;
+    ob_start();
+    require_once(__DIR__.'/templates/player.tpl.php');
+    $output = ob_get_contents();
+    ob_end_clean();
+    return $output;
+}
+
+// Requires params "courseid" and "videoid" to continue
+$courseid = required_param('courseid', PARAM_INT);
+$videoid = required_param('videoid', PARAM_TEXT);
+
+// Retrieve course information
+if (!$course = $DB->get_record('course', array('id' => $courseid))) {
+    print_error('listinvalidcourse', 'block_openveo_videos');
+}
+
+// Checks if user has access to the page or not
+require_login($course);
+$context = context_course::instance($COURSE->id);
+$isEnrolled = is_enrolled($context);
+
+if(!$isEnrolled && !has_capability('block/openveo_videos:viewvideo', $context)){
+    print_error('listaccessrefused', 'block_openveo_videos');
+}
+
+// Checks if video is validated
+$video = $DB->get_record('block_openveo_videos', array('videoid' => $videoid));
+if((!$video || $video->isvalidated == 0) 
+   && !has_capability('block/openveo_videos:viewvideo', $context)){
+    print_error('playerinvalidvideo', 'block_openveo_videos');
+}
+
+// Retrieve OpenVeo serveur configuration
+$serverhost = get_config('openveo_videos', 'serverhost');
+$serverport = get_config('openveo_videos', 'serverport');
+
+// Build video url
+$videourl = 'http://'.trim($serverhost, '/');
+if(!empty($serverport))
+    $videourl .= ':'.$serverport;
+
+$videourl = $videourl.'/publish/video/'.$videoid.'?fullscreen';
+
+// Set page url to call when returning to this page
+$PAGE->set_url('/blocks/openveo_videos/player.php', array('courseid' => $courseid, 'videoid' => $videoid));
+
+// Include player css
+$PAGE->requires->css('/blocks/openveo_videos/css/player.css');
+
+// Set page layout
+$PAGE->set_pagelayout('standard');
+
+// Set page title
+$PAGE->set_heading(get_string('playertitle', 'block_openveo_videos', $course->shortname));
+
+// Set breadcrumb
+$settingsnode = $PAGE->settingsnav->add(get_string('listsettingstitle', 'block_openveo_videos'));
+$editurl = new moodle_url('/blocks/openveo_videos/view.php', array('courseid' => $courseid));
+$editnode = $settingsnode->add(get_string('listsettingslink', 'block_openveo_videos'), $editurl);
+$editnode->make_active();
+
+echo $OUTPUT->header();
+echo block_openveo_videos_render_player($videourl);
+echo $OUTPUT->footer();

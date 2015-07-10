@@ -1,0 +1,4 @@
+/* Fix first column (column with the image of the video) */
+.ov-list-content .c0{ width : 250px; }
+.ov-list-content table img{ width: 100%; border: 1px solid #f1f1f1; }
+.ov-list-content table img:hover{ border: 1px solid #bbb; }
