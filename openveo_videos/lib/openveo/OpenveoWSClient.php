@@ -62,7 +62,7 @@ class OpenveoWSClient extends RestCurlClient{
    * @return Boolean true if the authentication succeed, false otherwise
    */
   public function authenticate(){
-    $url = $this->baseUrl . '/ws/token';
+    $url = $this->baseUrl . '/token';
     $results = $this->post($url, json_encode(array(
       'grant_type' => 'client_credentials'
     )), array(
@@ -97,7 +97,7 @@ class OpenveoWSClient extends RestCurlClient{
    * @return Array The list of videos or null
    */
   public function getVideosByProperty($propertyName, $propertyValue){
-    $url = $this->baseUrl . '/ws/getEntities/video';
+    $url = $this->baseUrl . '/getEntities/video';
     $results = $this->get($url, $this->headers);
 
     $decodedResults = json_decode($results);

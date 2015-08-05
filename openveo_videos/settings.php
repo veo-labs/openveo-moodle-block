@@ -68,7 +68,7 @@ $settings->add(new admin_setting_configtext(
             'openveo_videos/tokenpath',
             get_string('genconftokenpathlabel', 'block_openveo_videos'),
             get_string('genconftokenpathdesc', 'block_openveo_videos'),
-            'ws/token',
+            'token',
             PARAM_SAFEPATH
         ));
 
@@ -77,6 +77,6 @@ $settings->add(new admin_setting_configtext(
             'openveo_videos/videospath',
             get_string('genconfvideospathlabel', 'block_openveo_videos'),
             get_string('genconfvideospathdesc', 'block_openveo_videos'),
-            'ws/publish/videos',
+            'publish/videos',
             PARAM_SAFEPATH
         ));
