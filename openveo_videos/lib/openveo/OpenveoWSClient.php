@@ -97,7 +97,7 @@ class OpenveoWSClient extends RestCurlClient{
    * @return Array The list of videos or null
    */
   public function getVideosByProperty($propertyName, $propertyValue){
-    $url = $this->baseUrl . '/getEntities/video';
+    $url = $this->baseUrl . '/video';
     $results = $this->get($url, $this->headers);
 
     $decodedResults = json_decode($results);
