@@ -13,23 +13,33 @@
 
 $string['pluginname'] = 'OpenVeo videos';
 
-// Global web service configuration form
-$string['genconfheader'] = 'Web Service configuration';
-$string['genconfdesc'] = 'Configure access to the OpenVeo server. Courses videos are stored in the OpenVeo server. Moodle OpenVeo videos block uses OpenVeo web service to request all videos associated to a course. All fields must be populated to retrieve the list of videos from OpenVeo Web Service. If you haven\'t all the information to complete the form, please contact the OpenVeo administrator.';
+// Global server configuration form
+$string['genconfheader'] = 'Server configuration';
+$string['genconfdesc'] = 'Configure access to the OpenVeo server. Courses videos are stored in the OpenVeo server.';
 $string['genconfserverhostlabel'] = 'Server host';
 $string['genconfserverhostdesc'] = 'The OpenVeo HTTP server host without the protocol nor slashes (e.g. 127.0.0.1)';
 $string['genconfserverportlabel'] = 'Server port';
-$string['genconfserverportdesc'] = 'The OpenVeo HTTP server port (e.g. 3000)';
-$string['genconfclientidlabel'] = 'Client id';
-$string['genconfclientiddesc'] = 'Moodle client id to access OpenVeo web service (e.g 7c6892011e67ca05be3754137308a01a27ade9f3)';
-$string['genconfclientsecretlabel'] = 'Client secret';
-$string['genconfclientsecretdesc'] = 'Moodle client secret to access OpenVeo web service (e.g 128f5fd5d980fa7f261bc1592f7f3a44c0e5fc42)';
-$string['genconfadvancedconfigheader'] = 'Web Service advanced configuration';
-$string['genconfadvancedconfigdesc'] = 'These settings must be modified only by an OpenVeo administrator. Changing these settings may broke the block.';
-$string['genconftokenpathlabel'] = 'Token path';
-$string['genconftokenpathdesc'] = 'The Web Service path to get a token';
-$string['genconfvideospathlabel'] = 'Videos path';
-$string['genconfvideospathdesc'] = 'The Web Service path to get the list of videos';
+$string['genconfserverportdesc'] = 'HTTP server port (e.g. 3000)';
+
+// Global Web Service configuration form
+$string['genconfwsheader'] = 'Web Service configuration';
+$string['genconfwsdesc'] = 'Configure access to the OpenVeo Web Service. Courses videos are stored in the OpenVeo server. Moodle OpenVeo videos block uses OpenVeo Web Service to request all videos associated to a course. All fields must be populated to retrieve the list of videos from OpenVeo Web Service. If you haven\'t all the information to complete the form, please contact the OpenVeo administrator.';
+$string['genconfwsserverhostlabel'] = 'Web Service server host';
+$string['genconfwsserverhostdesc'] = 'The OpenVeo Web Service HTTP server host without the protocol nor slashes (e.g. 127.0.0.1)';
+$string['genconfwsserverportlabel'] = 'Web Service server port';
+$string['genconfwsserverportdesc'] = 'The OpenVeo Web Service HTTP server port (e.g. 3000)';
+$string['genconfwsclientidlabel'] = 'Client id';
+$string['genconfwsclientiddesc'] = 'Moodle client id to access OpenVeo web service (e.g 7c6892011e67ca05be3754137308a01a27ade9f3)';
+$string['genconfwsclientsecretlabel'] = 'Client secret';
+$string['genconfwsclientsecretdesc'] = 'Moodle client secret to access OpenVeo web service (e.g 128f5fd5d980fa7f261bc1592f7f3a44c0e5fc42)';
+
+// Global advanced configuration form
+$string['genconfadvheader'] = 'Web Service advanced configuration';
+$string['genconfadvdesc'] = 'These settings must be modified only by an OpenVeo administrator. Changing these settings may broke the block.';
+$string['genconfadvtokenpathlabel'] = 'Token path';
+$string['genconfadvtokenpathdesc'] = 'The Web Service path to get a token';
+$string['genconfadvvideospathlabel'] = 'Videos path';
+$string['genconfadvvideospathdesc'] = 'The Web Service path to get the list of videos';
 
 // Instance configuration form
 $string['inconfblocktitlelabel'] = 'OpenVeo videos';

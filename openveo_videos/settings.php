@@ -13,9 +13,9 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-// Web service configuration fieldset
+// Application configuration fieldset
 $settings->add(new admin_setting_heading(
-            'headerconfig',
+            'openveo_videos/headerconfig',
             get_string('genconfheader', 'block_openveo_videos'),
             get_string('genconfdesc', 'block_openveo_videos')
         ));
@@ -38,20 +38,45 @@ $settings->add(new admin_setting_configtext(
             PARAM_INT
         ));
 
+// Web service configuration fieldset
+$settings->add(new admin_setting_heading(
+            'openveo_videos/wsheaderconfig',
+            get_string('genconfwsheader', 'block_openveo_videos'),
+            get_string('genconfwsdesc', 'block_openveo_videos')
+        ));
+
+// Web Service server host
+$settings->add(new admin_setting_configtext(
+            'openveo_videos/wsserverhost',
+            get_string('genconfwsserverhostlabel', 'block_openveo_videos'),
+            get_string('genconfwsserverhostdesc', 'block_openveo_videos'),
+            '',
+            PARAM_RAW
+        ));
+
+// Web Service server port
+$settings->add(new admin_setting_configtext(
+            'openveo_videos/wsserverport',
+            get_string('genconfwsserverportlabel', 'block_openveo_videos'),
+            get_string('genconfwsserverportdesc', 'block_openveo_videos'),
+            '',
+            PARAM_INT
+        ));
+
 // Client id
 $settings->add(new admin_setting_configtext(
-            'openveo_videos/clientid',
-            get_string('genconfclientidlabel', 'block_openveo_videos'),
-            get_string('genconfclientiddesc', 'block_openveo_videos'),
+            'openveo_videos/wsclientid',
+            get_string('genconfwsclientidlabel', 'block_openveo_videos'),
+            get_string('genconfwsclientiddesc', 'block_openveo_videos'),
             '',
             PARAM_ALPHANUM
         ));
 
 // Client secret
 $settings->add(new admin_setting_configtext(
-            'openveo_videos/clientsecret',
-            get_string('genconfclientsecretlabel', 'block_openveo_videos'),
-            get_string('genconfclientsecretdesc', 'block_openveo_videos'),
+            'openveo_videos/wsclientsecret',
+            get_string('genconfwsclientsecretlabel', 'block_openveo_videos'),
+            get_string('genconfwsclientsecretdesc', 'block_openveo_videos'),
             '',
             PARAM_ALPHANUM
         ));
@@ -59,15 +84,15 @@ $settings->add(new admin_setting_configtext(
 // Advanced settings fieldset
 $settings->add(new admin_setting_heading(
             'openveo_videos/advancedconfig',
-            get_string('genconfadvancedconfigheader', 'block_openveo_videos'),
-            get_string('genconfadvancedconfigdesc', 'block_openveo_videos')
+            get_string('genconfadvheader', 'block_openveo_videos'),
+            get_string('genconfadvdesc', 'block_openveo_videos')
         ));
 
 // Token path
 $settings->add(new admin_setting_configtext(
             'openveo_videos/tokenpath',
-            get_string('genconftokenpathlabel', 'block_openveo_videos'),
-            get_string('genconftokenpathdesc', 'block_openveo_videos'),
+            get_string('genconfadvtokenpathlabel', 'block_openveo_videos'),
+            get_string('genconfadvtokenpathdesc', 'block_openveo_videos'),
             'token',
             PARAM_SAFEPATH
         ));
@@ -75,8 +100,8 @@ $settings->add(new admin_setting_configtext(
 // Videos path
 $settings->add(new admin_setting_configtext(
             'openveo_videos/videospath',
-            get_string('genconfvideospathlabel', 'block_openveo_videos'),
-            get_string('genconfvideospathdesc', 'block_openveo_videos'),
-            'publish/videos',
+            get_string('genconfadvvideospathlabel', 'block_openveo_videos'),
+            get_string('genconfadvvideospathdesc', 'block_openveo_videos'),
+            'video',
             PARAM_SAFEPATH
         ));

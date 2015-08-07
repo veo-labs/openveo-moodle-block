@@ -67,7 +67,7 @@ function block_openveo_videos_update_video($courseextid, $videoid, $validate){
 // Requires param "courseid" to continue
 $courseid = required_param('courseid', PARAM_INT);
 
-// Retrive course information
+// Retrieve course information
 if (!$course = $DB->get_record('course', array('id' => $courseid))) {
     print_error('listinvalidcourse', 'block_openveo_videos');
 }
@@ -96,10 +96,10 @@ if(!empty($action) && !empty($videoid) && $caneditlist){
 }
 
 // Retrieve block configuration
-$serverhost = get_config('openveo_videos', 'serverhost');
-$serverport = get_config('openveo_videos', 'serverport');
-$clientid = get_config('openveo_videos', 'clientid');
-$clientsecret = get_config('openveo_videos', 'clientsecret');
+$serverhost = get_config('openveo_videos', 'wsserverhost');
+$serverport = get_config('openveo_videos', 'wsserverport');
+$clientid = get_config('openveo_videos', 'wsclientid');
+$clientsecret = get_config('openveo_videos', 'wsclientsecret');
 
 // Get the list of videos
 require_once(__DIR__.'/lib/openveo/OpenveoWSClient.php');

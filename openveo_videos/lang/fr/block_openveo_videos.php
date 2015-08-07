@@ -13,23 +13,33 @@
 
 $string['pluginname'] = 'Vidéos OpenVeo';
 
-// Global web service configuration form
-$string['genconfheader'] = 'Configuration du Web Service';
-$string['genconfdesc'] = 'Configurer l\'accès au serveur OpenVeo. Les vidéos de cours sont stockées sur le serveur OpenVeo. Le plugin "OpenVeo videos" pour Moodle utilise le Web Service OpenVeo afin de récupérer les vidéos associées à un cours. Tous les champs doivent être renseignés pour récupérer la liste des vidéos sur le serveur OpenVeo. Si vous n\'avez pas toutes les informations nécessaires pour remplir le formulaire, merci de contacter l\'administrateur d\'OpenVeo.';
+// Global server configuration form
+$string['genconfheader'] = 'Configuration du serveur';
+$string['genconfdesc'] = 'Configurer l\'accès au serveur OpenVeo. Les vidéos de cours sont stockées sur le serveur OpenVeo.';
 $string['genconfserverhostlabel'] = 'Adresse du serveur';
 $string['genconfserverhostdesc'] = 'L\'adresse du serveur HTTP d\'OpenVeo sans le protocol (ex : 127.0.0.1)';
-$string['genconfserverportlabel'] = 'Port du serveur';
-$string['genconfserverportdesc'] = 'Le port du serveur HTTP d\'OpenVeo (ex : 3000)';
-$string['genconfclientidlabel'] = 'Identifiant client';
-$string['genconfclientiddesc'] = 'Identifiant client du plugin pour accéder au Web Service OpenVeo (ex :  7c6892011e67ca05be3754137308a01a27ade9f3)';
-$string['genconfclientsecretlabel'] = 'Secret client';
-$string['genconfclientsecretdesc'] = 'Secret client du plugin pour accéder au Web Service OpenVeo (ex : 128f5fd5d980fa7f261bc1592f7f3a44c0e5fc42)';
-$string['genconfadvancedconfigheader'] = 'Configuration avancée du Web Service';
-$string['genconfadvancedconfigdesc'] = 'Ces paramètres ne doivent être modifiés que par un administrateur OpenVeo. Changer ces paramètres peut empêcher le bon fonctionnement du bloc.';
-$string['genconftokenpathlabel'] = 'Chemin token';
-$string['genconftokenpathdesc'] = 'Le point d\'entrée Web Service pour obtenir un token';
-$string['genconfvideospathlabel'] = 'Chemin vidéos';
-$string['genconfvideospathdesc'] = 'Le point d\'entrée Web Service pour obtenir la list des vidéos';
+$string['genconfserverhostlabel'] = 'Adresse du serveur';
+$string['genconfserverhostdesc'] = 'L\'adresse du serveur HTTP d\'OpenVeo sans le protocol (ex : 127.0.0.1)';
+
+// Global Web Service configuration form
+$string['genconfwsheader'] = 'Configuration du Web Service';
+$string['genconfwsdesc'] = 'Configurer l\'accès au Web Service OpenVeo. Les vidéos de cours sont stockées sur le serveur OpenVeo. Le plugin "OpenVeo videos" pour Moodle utilise le Web Service OpenVeo afin de récupérer les vidéos associées à un cours. Tous les champs doivent être renseignés pour récupérer la liste des vidéos sur le serveur OpenVeo. Si vous n\'avez pas toutes les informations nécessaires pour remplir le formulaire, merci de contacter l\'administrateur d\'OpenVeo.';
+$string['genconfwsserverhostlabel'] = 'Adresse du Web Service';
+$string['genconfwsserverhostdesc'] = 'L\'adresse du Web Service HTTP d\'OpenVeo sans le protocol (ex : 127.0.0.1)';
+$string['genconfwsserverportlabel'] = 'Port du Web Service';
+$string['genconfwsserverportdesc'] = 'Le port du Web Service HTTP d\'OpenVeo (ex : 3000)';
+$string['genconfwsclientidlabel'] = 'Identifiant client';
+$string['genconfwsclientiddesc'] = 'Identifiant client du plugin pour accéder au Web Service OpenVeo (ex :  7c6892011e67ca05be3754137308a01a27ade9f3)';
+$string['genconfwsclientsecretlabel'] = 'Secret client';
+$string['genconfwsclientsecretdesc'] = 'Secret client du plugin pour accéder au Web Service OpenVeo (ex : 128f5fd5d980fa7f261bc1592f7f3a44c0e5fc42)';
+
+// Global advanced configuration form
+$string['genconfadvheader'] = 'Configuration avancée du Web Service';
+$string['genconfadvdesc'] = 'Ces paramètres ne doivent être modifiés que par un administrateur OpenVeo. Changer ces paramètres peut empêcher le bon fonctionnement du bloc.';
+$string['genconfadvtokenpathlabel'] = 'Chemin token';
+$string['genconfadvtokenpathdesc'] = 'Le point d\'entrée Web Service pour obtenir un token';
+$string['genconfadvvideospathlabel'] = 'Chemin vidéos';
+$string['genconfadvvideospathdesc'] = 'Le point d\'entrée Web Service pour obtenir la list des vidéos';
 
 // Instance configuration form
 $string['inconfblocktitlelabel'] = 'Vidéos OpenVeo';

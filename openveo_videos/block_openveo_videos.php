@@ -58,10 +58,10 @@ class block_openveo_videos extends block_base {
             $this->content = new StdClass();
 
             // Retrieve block configuration
-            $serverhost = get_config('openveo_videos', 'serverhost');
-            $serverport = get_config('openveo_videos', 'serverport');
-            $clientid = get_config('openveo_videos', 'clientid');
-            $clientsecret = get_config('openveo_videos', 'clientsecret');
+            $serverhost = get_config('openveo_videos', 'wsserverhost');
+            $serverport = get_config('openveo_videos', 'wsserverport');
+            $clientid = get_config('openveo_videos', 'wsclientid');
+            $clientsecret = get_config('openveo_videos', 'wsclientsecret');
             
             require_once(__DIR__.'/lib/openveo/OpenveoWSClient.php');
           
