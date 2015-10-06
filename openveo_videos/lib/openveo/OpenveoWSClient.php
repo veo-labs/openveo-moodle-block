@@ -109,7 +109,7 @@ class OpenveoWSClient extends RestCurlClient{
       $videos = array();
       for($i = 0 ; $i < sizeof($decodedResults->entities); $i++){
         $video = $decodedResults->entities[$i];
-        if($video->state == 7){
+        if($video->state == 12){
           
           if(!empty($video->properties)){
             
