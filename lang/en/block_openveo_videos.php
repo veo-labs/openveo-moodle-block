@@ -27,7 +27,7 @@ $string['genconfwsdesc'] = 'Configure access to the OpenVeo Web Service. Courses
 $string['genconfwsserverhostlabel'] = 'Web Service server host';
 $string['genconfwsserverhostdesc'] = 'The OpenVeo Web Service HTTP server host without the protocol nor slashes (e.g. 127.0.0.1)';
 $string['genconfwsserverportlabel'] = 'Web Service server port';
-$string['genconfwsserverportdesc'] = 'The OpenVeo Web Service HTTP server port (e.g. 3000)';
+$string['genconfwsserverportdesc'] = 'The OpenVeo Web Service HTTP server port (e.g. 3001)';
 $string['genconfwsclientidlabel'] = 'Client id';
 $string['genconfwsclientiddesc'] = 'Moodle client id to access OpenVeo web service (e.g 7c6892011e67ca05be3754137308a01a27ade9f3)';
 $string['genconfwsclientsecretlabel'] = 'Client secret';
@@ -36,10 +36,10 @@ $string['genconfwsclientsecretdesc'] = 'Moodle client secret to access OpenVeo w
 // Global advanced configuration form
 $string['genconfadvheader'] = 'Web Service advanced configuration';
 $string['genconfadvdesc'] = 'These settings must be modified only by an OpenVeo administrator. Changing these settings may broke the block.';
-$string['genconfadvtokenpathlabel'] = 'Token path';
-$string['genconfadvtokenpathdesc'] = 'The Web Service path to get a token';
 $string['genconfadvvideospathlabel'] = 'Videos path';
 $string['genconfadvvideospathdesc'] = 'The Web Service path to get the list of videos';
+$string['genconfadvvideoproplabel'] = 'Video property';
+$string['genconfadvvideopropdesc'] = 'The Openveo video property to filter on';
 
 // Instance configuration form
 $string['inconfblocktitlelabel'] = 'OpenVeo videos';

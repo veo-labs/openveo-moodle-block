@@ -96,95 +96,110 @@ if(!empty($action) && !empty($videoid) && $caneditlist){
 }
 
 // Retrieve block configuration
-$serverhost = get_config('openveo_videos', 'wsserverhost');
-$serverport = get_config('openveo_videos', 'wsserverport');
+$serverhost = get_config('openveo_videos', 'serverhost');
+$serverport = get_config('openveo_videos', 'serverport');
+$wsserverhost = get_config('openveo_videos', 'wsserverhost');
+$wsserverport = get_config('openveo_videos', 'wsserverport');
 $clientid = get_config('openveo_videos', 'wsclientid');
 $clientsecret = get_config('openveo_videos', 'wsclientsecret');
+$videospath = get_config('openveo_videos', 'videospath');
+$videoproperty = get_config('openveo_videos', 'videoproperty');
 
 // Get the list of videos
-require_once(__DIR__.'/lib/openveo/OpenveoWSClient.php');
+require 'vendor/autoload.php';
+use Openveo\Client\Client as OpenveoClient;
 
 $pluginPath = $CFG->wwwroot.'/blocks/openveo_videos/';
 $tableofvideostovalidate = new html_table();
 $tableofvideosvalidated = new html_table();
 try{
-  
+    $param = [
+        'sortBy' => 'date',
+        'sortOrder' => 'asc',
+        'properties' => [
+            $videoproperty => $course->idnumber
+        ]
+    ];
+    $query = http_build_query($param, '', '&');
+    $url = 'http://' . $wsserverhost . ':' . $wsserverport . '/' . $videospath . '?' . $query;
+
     // Make an authentication to the OpenVeo Web Service
-    $client = new OpenveoWSClient($clientid, $clientsecret, $serverhost, $serverport);
-    $isauthenticated = $client->authenticate();
+    $client = new OpenveoClient($clientid, $clientsecret, $wsserverhost, $wsserverport);
 
-    // Authentication succeed
-    if($isauthenticated){
-      
-        // Get all videos associated to the course
-        $videos = $client->getVideosByProperty('moodle', $course->idnumber);
+    // Get all videos associated to the course
+    $response = $client->get($url);
+    $videos = $response->{'videos'};
 
-        // Retrieve already validated videos
-        $validatedvideos = $DB->get_records('block_openveo_videos', array('isvalidated' => 1, 'courseid' => $course->idnumber));
+    // Retrieve already validated videos
+    $validatedvideos = $DB->get_records('block_openveo_videos', array('isvalidated' => 1, 'courseid' => $course->idnumber));
 
-        if(isset($videos)){
-            $tableheaders = array(get_string('listtablepictureheader', 'block_openveo_videos'), get_string('listtablenameheader', 'block_openveo_videos'), get_string('listtabledateheader', 'block_openveo_videos'));
+    if(isset($videos)){
+        $tableheaders = array(get_string('listtablepictureheader', 'block_openveo_videos'), get_string('listtablenameheader', 'block_openveo_videos'), get_string('listtabledateheader', 'block_openveo_videos'));
 
-            if($caneditlist){
-                  $tableheaders[] = get_string('listtableactionheader', 'block_openveo_videos'); 
-                $tableofvideostovalidate->head = $tableheaders;
-            }
-          
-            // Initializes both tables with validated and not validaded videos
-            $tableofvideosvalidated->head = $tableheaders;
+        if($caneditlist){
+              $tableheaders[] = get_string('listtableactionheader', 'block_openveo_videos'); 
+            $tableofvideostovalidate->head = $tableheaders;
+        }
 
-            // Iterate through videos
-            for($i = 0 ; $i < sizeof($videos) ; $i++){
-                $row = array();
-                $video = $videos[$i];
-                $videovalidated = false;
-              
-                // Checks if video is validated
-                if(!empty($validatedvideos)){
-                    foreach($validatedvideos as $validatedvideo){
-                        if(($validatedvideo->videoid === $video->id && $validatedvideo->isvalidated == 1)){
-                            $videovalidated = true;
-                            break;
-                        }
+        // Initializes both tables with validated and not validaded videos
+        $tableofvideosvalidated->head = $tableheaders;
+
+        // Iterate through videos
+        for($i = 0 ; $i < sizeof($videos) ; $i++){
+            $row = array();
+            $video = $videos[$i];
+            $videovalidated = false;
+
+            // Checks if video is validated
+            if(!empty($validatedvideos)){
+                foreach($validatedvideos as $validatedvideo){
+                    if(($validatedvideo->videoid === $video->id && $validatedvideo->isvalidated == 1)){
+                        $videovalidated = true;
+                        break;
                     }
                 }
-
-                // Image
-                $videopath = $pluginPath.'/player.php?courseid='.$courseid.'&videoid='.$video->id;
-                $row[] = '<a href="'.$videopath.'" title="'.$video->title.'">'.html_writer::img($pluginPath.'/images/no-image-500.gif', $video->title).'</a>';
-
-                // Name
-                $row[] = $video->title;
-
-                // Date
-                // Build video date
-                $viveomoodledate = usergetdate($video->metadata->date);
-                $videodate = new StdClass();
-                $videodate->day = ($viveomoodledate['mday'] < 10) ? '0'.$viveomoodledate['mday'] : $viveomoodledate['mday'];
-                $videodate->month = ($viveomoodledate['mon'] < 10) ? '0'.$viveomoodledate['mon'] : $viveomoodledate['mon'];
-                $videodate->year = $viveomoodledate['year'];     
-                $row[] = get_string('listvideodate', 'block_openveo_videos', $videodate);
-              
-                // Insert video in validated table
-                if($videovalidated){
-                  
-                  // Action
-                  if($caneditlist)
-                    $row[] = html_writer::link($FULLSCRIPT.'?courseid='.$courseid.'&action=unvalidate&videoid='.$video->id, get_string('listvideounvalidate', 'block_openveo_videos'));
-
-                  $tableofvideosvalidated->data[] = $row;
-                }
-              
-                // Insert video in not validated table
-                else if(has_capability('block/openveo_videos:editlist', $context)){
-                  
-                  // Action
-                  $row[] = html_writer::link($FULLSCRIPT.'?courseid='.$courseid.'&action=validate&videoid='.$video->id, get_string('listvideovalidate', 'block_openveo_videos'));
-
-                  $tableofvideostovalidate->data[] = $row;
-                }
-
             }
+
+            // Image
+            $videopath = $pluginPath.'/player.php?courseid='.$courseid.'&videoid='.$video->id;
+            $videoThumb = isset($video->thumbnail)? html_writer::img('http://'.$serverhost.':'.$serverport.$video->thumbnail, $video->title) :'';
+            $row[] = '<a href="'.$videopath.'" title="'.$video->title.'">'.
+                '<div class="placeholder" style="background-image:url(\''.$pluginPath.'/images/no-image-500.gif\')">'.
+                $videoThumb.
+                '<div class="play"></div>'.
+                '</div></a>';
+
+            // Name
+            $row[] = $video->title;
+
+            // Date
+            // Build video date
+            $viveomoodledate = usergetdate($video->metadata->date);
+            $videodate = new StdClass();
+            $videodate->day = ($viveomoodledate['mday'] < 10) ? '0'.$viveomoodledate['mday'] : $viveomoodledate['mday'];
+            $videodate->month = ($viveomoodledate['mon'] < 10) ? '0'.$viveomoodledate['mon'] : $viveomoodledate['mon'];
+            $videodate->year = $viveomoodledate['year'];
+            $row[] = get_string('listvideodate', 'block_openveo_videos', $videodate);
+
+            // Insert video in validated table
+            if($videovalidated){
+
+              // Action
+              if($caneditlist)
+                $row[] = html_writer::link($FULLSCRIPT.'?courseid='.$courseid.'&action=unvalidate&videoid='.$video->id, get_string('listvideounvalidate', 'block_openveo_videos'));
+
+              $tableofvideosvalidated->data[] = $row;
+            }
+
+            // Insert video in not validated table
+            else if(has_capability('block/openveo_videos:editlist', $context)){
+
+              // Action
+              $row[] = html_writer::link($FULLSCRIPT.'?courseid='.$courseid.'&action=validate&videoid='.$video->id, get_string('listvideovalidate', 'block_openveo_videos'));
+
+              $tableofvideostovalidate->data[] = $row;
+            }
+
         }
     }
 }

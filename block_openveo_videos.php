@@ -11,6 +11,9 @@
  * @license TODO
  */
 
+            
+require 'vendor/autoload.php';
+use Openveo\Client\Client as OpenveoClient;
 /**
  * Defines a new block presenting OpenVeo videos associated to a course.
  *
@@ -43,7 +46,7 @@ class block_openveo_videos extends block_base {
         if($this->content !== NULL) {
             return $this->content;
         }
-        
+
         $this->content = null;
         $courseid = $COURSE->id;
         $context = context_course::instance($courseid);
@@ -62,59 +65,67 @@ class block_openveo_videos extends block_base {
             $serverport = get_config('openveo_videos', 'wsserverport');
             $clientid = get_config('openveo_videos', 'wsclientid');
             $clientsecret = get_config('openveo_videos', 'wsclientsecret');
-            
-            require_once(__DIR__.'/lib/openveo/OpenveoWSClient.php');
+            $videospath = get_config('openveo_videos', 'videospath');
+            $videoproperty = get_config('openveo_videos', 'videoproperty');
           
             try{
+                $param = [
+                    'limit' => 1,
+                    'sortBy' => 'date',
+                    'sortOrder' => 'asc',
+                    'properties' => [
+                        $videoproperty => $COURSE->idnumber
+                    ]
+                ];
+                $query = http_build_query($param, '', '&');
+                $url = 'http://' . $serverhost . ':' . $serverport . '/' . $videospath . '?' . $query;
+
+                // Make an authentication to the OpenVeo Web Service
+                $client = new OpenveoClient($clientid, $clientsecret, $serverhost, $serverport);
+
+                $response = $client->get($url);
+                $videos = $response->{'videos'};
                 
-                // Authenticate to OpenVeo Web Service
-                $client = new OpenveoWSClient($clientid, $clientsecret, $serverhost, $serverport);
-                $isAuthenticated = $client->authenticate();
-            
-                // Autentication succeed
-                if($isAuthenticated){
-                    $videos = $client->getVideosByProperty('moodle', $COURSE->idnumber);
-                    $validatedvideos = $DB->get_records('block_openveo_videos', array('isvalidated' => 1, 'courseid' => $COURSE->idnumber));
+                $validatedvideos = $DB->get_records('block_openveo_videos', array('isvalidated' => 1, 'courseid' => $COURSE->idnumber));
 
-                    // Got a list of videos
-                    if(isset($videos) && !empty($videos)){
-                        // TODO Put some cache here
+                // Got a list of videos
+                if(isset($videos) && !empty($videos)){
+                    // TODO Put some cache here
 
-                        // Get first video date
-                        $video = $videos[0];
-                      
-                        $videovalidated = false;
+                    // Get first video date
+                    $video = $videos[0];
 
-                        // Checks if video is validated
-                        if(!empty($validatedvideos)){
-                            foreach($validatedvideos as $validatedvideo){
-                                if(($validatedvideo->videoid === $video->id && $validatedvideo->isvalidated == 1)){
-                                    $videovalidated = true;
-                                    break;
-                                }
+                    $videovalidated = false;
+
+                    // Checks if video is validated
+                    if(!empty($validatedvideos)){
+                        foreach($validatedvideos as $validatedvideo){
+                            if(($validatedvideo->videoid === $video->id && $validatedvideo->isvalidated == 1)){
+                                $videovalidated = true;
+                                break;
                             }
                         }
-                      
-                        if($videovalidated || has_capability('block/openveo_videos:viewblock', $context)){
-                      
-                            // Url for the list of videos associated to this course id
-                            $videosurl = $CFG->wwwroot.'/blocks/openveo_videos/view.php?courseid='.$courseid;
-
-                            // Path to the video
-                            $videopath = $CFG->wwwroot.'/blocks/openveo_videos/player.php?courseid='.$courseid.'&videoid='.$video->id;
-
-                            // Build video date
-                            $viveomoodledate = usergetdate($video->metadata->date);
-                            $videodate = new StdClass();
-                            $videodate->day = ($viveomoodledate['mday'] < 10) ? '0'.$viveomoodledate['mday'] : $viveomoodledate['mday'];
-                            $videodate->month = ($viveomoodledate['mon'] < 10) ? '0'.$viveomoodledate['mon'] : $viveomoodledate['mon'];
-                            $videodate->year = $viveomoodledate['year'];
-
-                            // Build content
-                            $this->content->text = $this->render_block($video->title, $video->description, $videodate, $videosurl, $videopath, $videovalidated);
-                        }
                     }
-              }
+
+                    if($videovalidated || has_capability('block/openveo_videos:viewblock', $context)){
+
+                        // Url for the list of videos associated to this course id
+                        $videosurl = $CFG->wwwroot.'/blocks/openveo_videos/view.php?courseid='.$courseid;
+
+                        // Path to the video
+                        $videopath = $CFG->wwwroot.'/blocks/openveo_videos/player.php?courseid='.$courseid.'&videoid='.$video->id;
+
+                        // Build video date
+                        $viveomoodledate = usergetdate($video->metadata->date);
+                        $videodate = new StdClass();
+                        $videodate->day = ($viveomoodledate['mday'] < 10) ? '0'.$viveomoodledate['mday'] : $viveomoodledate['mday'];
+                        $videodate->month = ($viveomoodledate['mon'] < 10) ? '0'.$viveomoodledate['mon'] : $viveomoodledate['mon'];
+                        $videodate->year = $viveomoodledate['year'];
+                        
+                        // Build content
+                        $this->content->text = $this->render_block($video->title, $video->description, $videodate, $videosurl, $videopath, $video->thumbnail, $videovalidated);
+                    }
+                } 
             }
             catch(RestClientException $e){
                 // TODO Log the error when Moodle has a good way to do it
@@ -180,9 +191,11 @@ class block_openveo_videos extends block_base {
      * @param string $videopath The url to the video
      * @param bool $videovalidated true if video is validated, false otherwise
      */
-    private function render_block($videotitle, $videodescription, $videodate, $videosurl, $videopath, $videovalidated) {
+    private function render_block($videotitle, $videodescription, $videodate, $videosurl, $videopath, $videothumb, $videovalidated) {
         global $CFG;
         $pluginPath = $CFG->wwwroot.'/blocks/openveo_videos/';
+        $serverhost = get_config('openveo_videos', 'serverhost');
+        $serverport = get_config('openveo_videos', 'serverport');
         ob_start();
         require_once(__DIR__.'/templates/block.tpl.php');
         $output = ob_get_contents();

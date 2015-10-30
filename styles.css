@@ -1,6 +1,26 @@
 /* Block */
-.ov-block-content img{ width: 100%; border: 1px solid #f1f1f1; }
-.ov-block-content img:hover{ width: 100%; border: 1px solid #bbb; }
-
+.ov-block-content img{ width: 100%; border: 1px solid #f1f1f1; position: absolute;}
+.ov-block-content .placeholder{
+  width:100%;
+  min-height: 200px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+.ov-block-content .play {
+  position: absolute;
+  left: 46%;
+  top: 38%;
+  width: 0;
+  height: 0;
+  border-top: 25px solid transparent;
+  border-left: 40px solid #fff;
+  border-bottom: 25px solid transparent;
+  transition: border-color 0.2s ease;
+}
+.ov-block-content:hover .play {
+  border-left: 40px solid #1bbbe9;
+}
 /* List of videos */
 body{ background-color: orange; }

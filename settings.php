@@ -88,20 +88,20 @@ $settings->add(new admin_setting_heading(
             get_string('genconfadvdesc', 'block_openveo_videos')
         ));
 
-// Token path
-$settings->add(new admin_setting_configtext(
-            'openveo_videos/tokenpath',
-            get_string('genconfadvtokenpathlabel', 'block_openveo_videos'),
-            get_string('genconfadvtokenpathdesc', 'block_openveo_videos'),
-            'token',
-            PARAM_SAFEPATH
-        ));
-
 // Videos path
 $settings->add(new admin_setting_configtext(
             'openveo_videos/videospath',
             get_string('genconfadvvideospathlabel', 'block_openveo_videos'),
             get_string('genconfadvvideospathdesc', 'block_openveo_videos'),
-            'video',
+            'publish/videos',
+            PARAM_SAFEPATH
+        ));
+
+// Videos path
+$settings->add(new admin_setting_configtext(
+            'openveo_videos/videoproperty',
+            get_string('genconfadvvideoproplabel', 'block_openveo_videos'),
+            get_string('genconfadvvideopropdesc', 'block_openveo_videos'),
+            'moodle',
             PARAM_SAFEPATH
         ));

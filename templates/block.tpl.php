@@ -17,13 +17,23 @@
  * @copyright 2015, veo-labs <info@veo-labs.com>
  * @license TODO
  */
+
 ?>
+<style>
+  .ov-block-content .placeholder{
+    background-image: url('<?php print $pluginPath.'images/no-image-500.gif';?>');
+  }
+</style>
 <div class="ov-block-content">
   <?php if($videovalidated): ?>
+    <h4><?php print $videotitle; ?></h4>
     <a href="<?php print $videopath; ?>" title="<?php print $videotitle; ?>">
-      <img src="<?php print $pluginPath.'images/no-image-500.gif'; ?>" alt="<?php print $videotitle; ?>" />
+      <div class='placeholder'>
+        <img src="<?php print 'http://'.$serverhost.':'.$serverport.$videothumb; ?>" alt="<?php print $videotitle; ?>" />
+        <div class='play'></div>
+      </div>
     </a>
-    <div><?php print get_string('blockvideodate', 'block_openveo_videos', $videodate); ?></div>
+    <div class="mdl-right"><?php print get_string('blockvideodate', 'block_openveo_videos', $videodate); ?></div>
   <?php endif; ?>
   <hr>
   <a href="<?php print $videosurl; ?>"><?php print get_string('blockvideoslink', 'block_openveo_videos'); ?></a>

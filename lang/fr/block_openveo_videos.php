@@ -27,7 +27,7 @@ $string['genconfwsdesc'] = 'Configurer l\'accès au Web Service OpenVeo. Les vid
 $string['genconfwsserverhostlabel'] = 'Adresse du Web Service';
 $string['genconfwsserverhostdesc'] = 'L\'adresse du Web Service HTTP d\'OpenVeo sans le protocol (ex : 127.0.0.1)';
 $string['genconfwsserverportlabel'] = 'Port du Web Service';
-$string['genconfwsserverportdesc'] = 'Le port du Web Service HTTP d\'OpenVeo (ex : 3000)';
+$string['genconfwsserverportdesc'] = 'Le port du Web Service HTTP d\'OpenVeo (ex : 3001)';
 $string['genconfwsclientidlabel'] = 'Identifiant client';
 $string['genconfwsclientiddesc'] = 'Identifiant client du plugin pour accéder au Web Service OpenVeo (ex :  7c6892011e67ca05be3754137308a01a27ade9f3)';
 $string['genconfwsclientsecretlabel'] = 'Secret client';
@@ -36,10 +36,10 @@ $string['genconfwsclientsecretdesc'] = 'Secret client du plugin pour accéder au
 // Global advanced configuration form
 $string['genconfadvheader'] = 'Configuration avancée du Web Service';
 $string['genconfadvdesc'] = 'Ces paramètres ne doivent être modifiés que par un administrateur OpenVeo. Changer ces paramètres peut empêcher le bon fonctionnement du bloc.';
-$string['genconfadvtokenpathlabel'] = 'Chemin token';
-$string['genconfadvtokenpathdesc'] = 'Le point d\'entrée Web Service pour obtenir un token';
 $string['genconfadvvideospathlabel'] = 'Chemin vidéos';
-$string['genconfadvvideospathdesc'] = 'Le point d\'entrée Web Service pour obtenir la list des vidéos';
+$string['genconfadvvideospathdesc'] = 'Le point d\'entrée Web Service pour obtenir la liste des vidéos';
+$string['genconfadvvideoproplabel'] = 'Propriété vidéo';
+$string['genconfadvvideopropdesc'] = 'La propriété de la video Openveo pour filtrer les vidéos';
 
 // Instance configuration form
 $string['inconfblocktitlelabel'] = 'Vidéos OpenVeo';
