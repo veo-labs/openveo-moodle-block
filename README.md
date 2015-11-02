@@ -16,9 +16,9 @@ OpenVeo Moodle Block adds the following features :
 
 ## Installation
 - Download a zip file from this repository.
-- Unzip it in a temporary named "openveo_videos" folder.
-- Unzip the "openveo-rest-php-client.zip" file in "openveo_videos/lib" folder in order to have dependency sources in "openveo_videos/lib/openveo-rest-php-client/" folder.
-- Move your "openveo_videos" folder to "MOODLE_PATH_ROOT/blocks/openveo_videos".
+- Unzip it in a temporary named **openveo_videos** folder.
+- Unzip the **openveo-rest-php-client.zip** file in **openveo_videos/lib** folder in order to have dependency sources in **openveo_videos/lib/openveo-rest-php-client/** folder.
+- Move your **openveo_videos** folder to **MOODLE_PATH_ROOT/blocks/openveo_videos**  where MOODLE_PATH_ROOT is your Moodle instalation folder.
 - In your Moodle site (as admin) go to Settings > Site administration > Notifications : you should get a message saying the plugin is installed.
 
 If you experience troubleshooting during installation, please refer on the [Moodle installation plugin documentation](https://docs.moodle.org/29/en/Installing_plugins), "Installing manually at the server" section.
