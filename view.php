@@ -106,7 +106,7 @@ $videospath = get_config('openveo_videos', 'videospath');
 $videoproperty = get_config('openveo_videos', 'videoproperty');
 
 // Get the list of videos
-require 'vendor/autoload.php';
+require 'lib/openveo-rest-php-client/autoload_dist.php';
 use Openveo\Client\Client as OpenveoClient;
 
 $pluginPath = $CFG->wwwroot.'/blocks/openveo_videos/';

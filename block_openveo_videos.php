@@ -12,7 +12,7 @@
  */
 
             
-require 'vendor/autoload.php';
+require 'lib/openveo-rest-php-client/autoload_dist.php';
 use Openveo\Client\Client as OpenveoClient;
 /**
  * Defines a new block presenting OpenVeo videos associated to a course.
