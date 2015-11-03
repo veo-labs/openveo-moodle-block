@@ -1,4 +1,22 @@
+# Linux
+.directory
+*~
+.*.swp
+
+# OS X
+.DS_Store*
+Icon?
+._*
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Windows XP
+ehthumbs.db
+
+# IDE
 /nbproject
-/private
-/vendor
-composer.lock
+
+# External libraries
+/lib
