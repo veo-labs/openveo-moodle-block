@@ -97,7 +97,7 @@ $settings->add(new admin_setting_configtext(
             PARAM_SAFEPATH
         ));
 
-// Videos path
+// Videos property
 $settings->add(new admin_setting_configtext(
             'openveo_videos/videoproperty',
             get_string('genconfadvvideoproplabel', 'block_openveo_videos'),

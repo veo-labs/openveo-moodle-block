@@ -39,28 +39,28 @@ function block_openveo_videos_render_list($tableofvideos, $tableofvideostovalida
  * @param string $videoid The id of the video
  * @param bool $validate true to validate the video, false to unvalidate
  */
-function block_openveo_videos_update_video($courseextid, $videoid, $validate){
+function block_openveo_videos_update_video($courseextid, $videoid, $validate) {
   global $DB;
   $video = $DB->get_record('block_openveo_videos', array('videoid' => $videoid));
 
   // Insert
-  if(!$video){
+  if(!$video) {
       $record = new stdClass();
       $record->courseid = $courseextid;
       $record->videoid = $videoid;
       $record->isvalidated = $validate ? 1 : 0;
 
       $newrecord = $DB->insert_record('block_openveo_videos', $record);
-  }
-  
-  // Update
-  else if(($video->isvalidated == 0 && $validate)
+  } else if(($video->isvalidated == 0 && $validate)
           || ($video->isvalidated == 1 && !$validate)
-  ){
+  ) {
+
+      // Update
       $record = new stdClass();
       $record->id = $video->id;
       $record->isvalidated = $validate ? 1 : 0;
       $DB->update_record('block_openveo_videos', $record);
+
   }
 }
 
@@ -77,7 +77,7 @@ require_login($course);
 $context = context_course::instance($COURSE->id);
 $isEnrolled = is_enrolled($context);
 
-if(!$isEnrolled && !has_capability('block/openveo_videos:viewlist', $context)){
+if(!$isEnrolled && !has_capability('block/openveo_videos:viewlist', $context)) {
     print_error('listaccessrefused', 'block_openveo_videos');
 }
 
@@ -106,13 +106,13 @@ $videospath = get_config('openveo_videos', 'videospath');
 $videoproperty = get_config('openveo_videos', 'videoproperty');
 
 // Get the list of videos
-require 'lib/openveo-rest-php-client/autoload_dist.php';
+require_once('require_openveo.php');
 use Openveo\Client\Client as OpenveoClient;
 
 $pluginPath = $CFG->wwwroot.'/blocks/openveo_videos/';
 $tableofvideostovalidate = new html_table();
 $tableofvideosvalidated = new html_table();
-try{
+try {
     $param = [
         'sortBy' => 'date',
         'sortOrder' => 'asc',
@@ -121,23 +121,23 @@ try{
         ]
     ];
     $query = http_build_query($param, '', '&');
-    $url = 'http://' . $wsserverhost . ':' . $wsserverport . '/' . $videospath . '?' . $query;
+    $url = 'http://'.$wsserverhost.':'.$wsserverport.'/'.$videospath.'?'.$query;
 
     // Make an authentication to the OpenVeo Web Service
     $client = new OpenveoClient($clientid, $clientsecret, $wsserverhost, $wsserverport);
 
     // Get all videos associated to the course
     $response = $client->get($url);
-    $videos = $response->{'videos'};
 
     // Retrieve already validated videos
     $validatedvideos = $DB->get_records('block_openveo_videos', array('isvalidated' => 1, 'courseid' => $course->idnumber));
 
-    if(isset($videos)){
+    if(isset($response->{'videos'})) {
+        $videos = $response->{'videos'};
         $tableheaders = array(get_string('listtablepictureheader', 'block_openveo_videos'), get_string('listtablenameheader', 'block_openveo_videos'), get_string('listtabledateheader', 'block_openveo_videos'));
 
-        if($caneditlist){
-              $tableheaders[] = get_string('listtableactionheader', 'block_openveo_videos'); 
+        if($caneditlist) {
+            $tableheaders[] = get_string('listtableactionheader', 'block_openveo_videos');
             $tableofvideostovalidate->head = $tableheaders;
         }
 
@@ -145,15 +145,15 @@ try{
         $tableofvideosvalidated->head = $tableheaders;
 
         // Iterate through videos
-        for($i = 0 ; $i < sizeof($videos) ; $i++){
+        for($i = 0 ; $i < sizeof($videos) ; $i++) {
             $row = array();
             $video = $videos[$i];
             $videovalidated = false;
 
             // Checks if video is validated
-            if(!empty($validatedvideos)){
-                foreach($validatedvideos as $validatedvideo){
-                    if(($validatedvideo->videoid === $video->id && $validatedvideo->isvalidated == 1)){
+            if(!empty($validatedvideos)) {
+                foreach($validatedvideos as $validatedvideo) {
+                    if(($validatedvideo->videoid === $video->id && $validatedvideo->isvalidated == 1)) {
                         $videovalidated = true;
                         break;
                     }
@@ -182,7 +182,7 @@ try{
             $row[] = get_string('listvideodate', 'block_openveo_videos', $videodate);
 
             // Insert video in validated table
-            if($videovalidated){
+            if($videovalidated) {
 
               // Action
               if($caneditlist)
@@ -192,7 +192,7 @@ try{
             }
 
             // Insert video in not validated table
-            else if(has_capability('block/openveo_videos:editlist', $context)){
+            else if(has_capability('block/openveo_videos:editlist', $context)) {
 
               // Action
               $row[] = html_writer::link($FULLSCRIPT.'?courseid='.$courseid.'&action=validate&videoid='.$video->id, get_string('listvideovalidate', 'block_openveo_videos'));
@@ -203,10 +203,10 @@ try{
         }
     }
 }
-catch(RestClientException $e){
+catch(RestClientException $e) {
     // TODO Log the error when Moodle has a good way to do it
 }
-catch(OpenveoWSException $e){
+catch(OpenveoWSException $e) {
     // TODO Log the error when Moodle has a good way to do it
 }
 

@@ -11,27 +11,27 @@
  * @license TODO
  */
 
-            
-require 'lib/openveo-rest-php-client/autoload_dist.php';
+require_once('require_openveo.php');
 use Openveo\Client\Client as OpenveoClient;
+
 /**
  * Defines a new block presenting OpenVeo videos associated to a course.
  *
- * The block presents the last published video for the course and a link to access the complete list of videos associated to the course. 
+ * The block presents the last published video for the course and a link to access the complete list of videos associated to the course.
  *
  * @package block_openveo_videos
  * @copyright 2015, veo-labs <info@veo-labs.com>
- * @license TODO 
+ * @license TODO
  */
 class block_openveo_videos extends block_base {
-    
+
     /**
      * Initializes block's default title.
      */
     public function init() {
         $this->title = get_string('pluginname', 'block_openveo_videos');
     }
-    
+
     /**
      * Sets block content (title, text and footer).
      *
@@ -41,7 +41,7 @@ class block_openveo_videos extends block_base {
      */
     public function get_content() {
         global $COURSE, $CFG, $DB;
-        
+
         // Content already generated
         if($this->content !== NULL) {
             return $this->content;
@@ -50,14 +50,14 @@ class block_openveo_videos extends block_base {
         $this->content = null;
         $courseid = $COURSE->id;
         $context = context_course::instance($courseid);
-      
-        // Checks if user has the permission to see the block and its 
+
+        // Checks if user has the permission to see the block and its
         // content
         $isEnrolled = is_enrolled($context);
         $hasCapability = has_capability('block/openveo_videos:viewblock', $context);
-        
+
         // User has the permission to see the block
-        if(!empty($courseid) && ($isEnrolled || $hasCapability)){
+        if(!empty($courseid) && ($isEnrolled || $hasCapability)) {
             $this->content = new StdClass();
 
             // Retrieve block configuration
@@ -67,8 +67,8 @@ class block_openveo_videos extends block_base {
             $clientsecret = get_config('openveo_videos', 'wsclientsecret');
             $videospath = get_config('openveo_videos', 'videospath');
             $videoproperty = get_config('openveo_videos', 'videoproperty');
-          
-            try{
+
+            try {
                 $param = [
                     'limit' => 1,
                     'sortBy' => 'date',
@@ -84,12 +84,13 @@ class block_openveo_videos extends block_base {
                 $client = new OpenveoClient($clientid, $clientsecret, $serverhost, $serverport);
 
                 $response = $client->get($url);
-                $videos = $response->{'videos'};
-                
+
                 $validatedvideos = $DB->get_records('block_openveo_videos', array('isvalidated' => 1, 'courseid' => $COURSE->idnumber));
 
                 // Got a list of videos
-                if(isset($videos) && !empty($videos)){
+                if(isset($response->{'videos'}) && !empty($response->{'videos'})) {
+                    $videos = $response->{'videos'};
+
                     // TODO Put some cache here
 
                     // Get first video date
@@ -98,16 +99,16 @@ class block_openveo_videos extends block_base {
                     $videovalidated = false;
 
                     // Checks if video is validated
-                    if(!empty($validatedvideos)){
-                        foreach($validatedvideos as $validatedvideo){
-                            if(($validatedvideo->videoid === $video->id && $validatedvideo->isvalidated == 1)){
+                    if(!empty($validatedvideos)) {
+                        foreach($validatedvideos as $validatedvideo) {
+                            if(($validatedvideo->videoid === $video->id && $validatedvideo->isvalidated == 1)) {
                                 $videovalidated = true;
                                 break;
                             }
                         }
                     }
 
-                    if($videovalidated || has_capability('block/openveo_videos:viewblock', $context)){
+                    if($videovalidated || has_capability('block/openveo_videos:viewblock', $context)) {
 
                         // Url for the list of videos associated to this course id
                         $videosurl = $CFG->wwwroot.'/blocks/openveo_videos/view.php?courseid='.$courseid;
@@ -121,48 +122,48 @@ class block_openveo_videos extends block_base {
                         $videodate->day = ($viveomoodledate['mday'] < 10) ? '0'.$viveomoodledate['mday'] : $viveomoodledate['mday'];
                         $videodate->month = ($viveomoodledate['mon'] < 10) ? '0'.$viveomoodledate['mon'] : $viveomoodledate['mon'];
                         $videodate->year = $viveomoodledate['year'];
-                        
+
                         // Build content
                         $this->content->text = $this->render_block($video->title, $video->description, $videodate, $videosurl, $videopath, $video->thumbnail, $videovalidated);
                     }
-                } 
+                }
             }
-            catch(RestClientException $e){
+            catch(RestClientException $e) {
                 // TODO Log the error when Moodle has a good way to do it
             }
-            catch(OpenveoWSException $e){
+            catch(OpenveoWSException $e) {
                 // TODO Log the error when Moodle has a good way to do it
             }
-          
+
         }
-        
+
         return $this->content;
     }
-    
+
     /**
      * Sets block's title using block's instance configuration.
      */
     public function specialization() {
         if (isset($this->config)) {
             if (empty($this->config->title)) {
-                $this->title = get_string('pluginname', 'block_openveo_videos');            
+                $this->title = get_string('pluginname', 'block_openveo_videos');
             } else {
                 $this->title = $this->config->title;
             }
         }
     }
-    
+
     /**
-     * Restricts access to the block. 
+     * Restricts access to the block.
      *
      * Block can be added only on a course page.
-     * 
+     *
      * @return array A list of formats with a boolean as value
      */
     public function applicable_formats() {
       return array('course-view' => true);
-    }    
-    
+    }
+
     /**
      * Allows multiple instances of the block.
      *
@@ -171,7 +172,7 @@ class block_openveo_videos extends block_base {
     public function instance_allow_multiple() {
         return true;
     }
-    
+
     /**
      * Informs Moodle that the block has a global ocnfiguration file.
      *
@@ -180,12 +181,12 @@ class block_openveo_videos extends block_base {
     function has_config() {
         return true;
     }
-  
+
     /**
      * Renders the block using the block template.
-     * 
-     * @param string $videotitle The video title 
-     * @param string $videodescription The video description 
+     *
+     * @param string $videotitle The video title
+     * @param string $videodescription The video description
      * @param stdClass $videodate The video date with day, month and year
      * @param string $videosurl Url to the list of videos associated to the course
      * @param string $videopath The url to the video
@@ -202,5 +203,5 @@ class block_openveo_videos extends block_base {
         ob_end_clean();
         return $output;
     }
-    
+
 }
