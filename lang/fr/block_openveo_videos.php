@@ -42,7 +42,7 @@ $string['genconfadvvideoproplabel'] = 'Propriété vidéo';
 $string['genconfadvvideopropdesc'] = 'La propriété de la video Openveo pour filtrer les vidéos';
 
 // Instance configuration form
-$string['inconfblocktitlelabel'] = 'Vidéos OpenVeo';
+$string['inconfblocktitlelabel'] = 'Vidéos';
 $string['inconfblocktitlelabel_help'] = 'Le titre du bloc tel qu\'il apparaîtra en haut du bloc.';
 
 // Block
@@ -51,7 +51,7 @@ $string['blockvideoslink'] = 'Voir toutes les vidéos';
 
 // Page listing videos
 $string['listtitle'] = 'Toutes les vidéos du cours "{$a}"';
-$string['listsettingstitle'] = 'Vidéos OpenVeo';
+$string['listsettingstitle'] = 'Titre du bloc';
 $string['listsettingslink'] = 'Voir toutes les vidéos';
 $string['listinvalidcourse'] = 'Le cours que vous recherchez n\'existe pas';
 $string['listaccessrefused'] = 'Vous n\'avez pas la permission d\'accéder à cette page';
