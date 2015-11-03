@@ -103,5 +103,5 @@ $settings->add(new admin_setting_configtext(
             get_string('genconfadvvideoproplabel', 'block_openveo_videos'),
             get_string('genconfadvvideopropdesc', 'block_openveo_videos'),
             'moodle',
-            PARAM_SAFEPATH
+            PARAM_TEXT
         ));
