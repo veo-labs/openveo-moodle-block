@@ -95,7 +95,6 @@ class block_openveo_videos extends block_base {
 
                     // Get first video date
                     $video = $videos[0];
-
                     $videovalidated = false;
 
                     // Checks if video is validated
@@ -116,6 +115,9 @@ class block_openveo_videos extends block_base {
                         // Path to the video
                         $videopath = $CFG->wwwroot.'/blocks/openveo_videos/player.php?courseid='.$courseid.'&videoid='.$video->id;
 
+                        // Video thumbnail
+                        $thumbnailpath = isset($video->thumbnail) ? $video->thumbnail : null;
+
                         // Build video date
                         $viveomoodledate = usergetdate($video->metadata->date);
                         $videodate = new StdClass();
@@ -124,7 +126,7 @@ class block_openveo_videos extends block_base {
                         $videodate->year = $viveomoodledate['year'];
 
                         // Build content
-                        $this->content->text = $this->render_block($video->title, $video->description, $videodate, $videosurl, $videopath, $video->thumbnail, $videovalidated);
+                        $this->content->text = $this->render_block($video->title, $video->description, $videodate, $videosurl, $videopath, $thumbnailpath, $videovalidated);
                     }
                 }
             }

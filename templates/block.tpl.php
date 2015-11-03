@@ -29,7 +29,9 @@
     <h4><?php print $videotitle; ?></h4>
     <a href="<?php print $videopath; ?>" title="<?php print $videotitle; ?>">
       <div class='placeholder'>
-        <img src="<?php print 'http://'.$serverhost.':'.$serverport.$videothumb; ?>" alt="<?php print $videotitle; ?>" />
+        <?php if(!empty($videothumb)): ?>
+          <img src="<?php print 'http://'.$serverhost.':'.$serverport.$videothumb; ?>" alt="<?php print $videotitle; ?>" />
+        <?php endif; ?>
         <div class='play'></div>
       </div>
     </a>
