@@ -19,11 +19,6 @@
  */
 
 ?>
-<style>
-  .ov-block-content .placeholder{
-    background-image: url('<?php print $pluginPath.'images/no-image-500.gif';?>');
-  }
-</style>
 <div class="ov-block-content">
   <?php if($videovalidated): ?>
     <h4><?php print $videotitle; ?></h4>

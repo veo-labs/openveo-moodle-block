@@ -4,22 +4,26 @@
 .ov-list-content .placeholder{
   width:100%;
   min-height: 140px;
-  background-size: cover;
-  background-position: center;
+  background-color: #eee;
+  transition: background-color 0.4s ease;
   position: relative;
-  overflow: hidden;
+  border-radius: 20px;
 }
 .ov-list-content tr .play {
   position: absolute;
-  left: 46%;
-  top: 38%;
+  left: 45%;
+  top: 34%;
   width: 0;
   height: 0;
-  border-top: 15px solid transparent;
-  border-left: 25px solid #fff;
-  border-bottom: 15px solid transparent;
-  transition: border-color 0.2s ease;
+  border-top: 22px solid transparent;
+  border-left: 35px solid #fff;
+  border-bottom: 22px solid transparent;
+  transition: border-color 0.4s ease;
+}
+
+.ov-list-content tr:hover .placeholder {
+  background-color:#fff;
 }
 .ov-list-content tr:hover .play {
-  border-left: 25px solid #1bbbe9;
+  border-left: 35px solid #1bbbe9;
 }

@@ -164,7 +164,7 @@ try {
             $videopath = $pluginPath.'/player.php?courseid='.$courseid.'&videoid='.$video->id;
             $videoThumb = isset($video->thumbnail) ? html_writer::img('http://'.$serverhost.':'.$serverport.$video->thumbnail, $video->title) : '';
             $row[] = '<a href="'.$videopath.'" title="'.$video->title.'">'.
-                '<div class="placeholder" style="background-image:url(\''.$pluginPath.'/images/no-image-500.gif\')">'.
+                '<div class="placeholder">'.
                 $videoThumb.
                 '<div class="play"></div>'.
                 '</div></a>';

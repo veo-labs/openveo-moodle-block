@@ -3,10 +3,10 @@
 .ov-block-content .placeholder{
   width:100%;
   min-height: 200px;
-  background-size: cover;
-  background-position: center;
+  background-color: #eee;
+  transition: background-color 0.4s ease;
   position: relative;
-  overflow: hidden;
+  border-radius: 20px;
 }
 .ov-block-content .play {
   position: absolute;
@@ -17,10 +17,13 @@
   border-top: 25px solid transparent;
   border-left: 40px solid #fff;
   border-bottom: 25px solid transparent;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.4s ease;
 }
 .ov-block-content:hover .play {
   border-left: 40px solid #1bbbe9;
+}
+.ov-block-content:hover .placeholder {
+  background-color:#fff;
 }
 /* List of videos */
 body{ background-color: orange; }
