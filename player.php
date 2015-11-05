@@ -49,7 +49,7 @@ if(!$isEnrolled && !has_capability('block/openveo_videos:viewvideo', $context)) 
 }
 
 // Checks if video is validated
-$video = $DB->get_record('block_openveo_videos', array('videoid' => $videoid));
+$video = $DB->get_record('block_openveo_videos', array('videoid' => $videoid, 'courseid' => $courseid));
 if((!$video || $video->isvalidated == 0)
    && !has_capability('block/openveo_videos:viewvideo', $context)) {
     print_error('playerinvalidvideo', 'block_openveo_videos');

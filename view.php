@@ -41,7 +41,7 @@ function block_openveo_videos_render_list($tableofvideos, $tableofvideostovalida
  */
 function block_openveo_videos_update_video($courseextid, $videoid, $validate) {
   global $DB;
-  $video = $DB->get_record('block_openveo_videos', array('videoid' => $videoid));
+  $video = $DB->get_record('block_openveo_videos', array('videoid' => $videoid, 'courseid' => $courseextid));
 
   // Insert
   if(!$video) {
