@@ -70,7 +70,6 @@ class block_openveo_videos extends block_base {
 
             try {
                 $param = [
-                    'limit' => 1,
                     'sortBy' => 'date',
                     'sortOrder' => 'asc',
                     'properties' => [
@@ -90,20 +89,26 @@ class block_openveo_videos extends block_base {
                 // Got a list of videos
                 if(isset($response->{'videos'}) && !empty($response->{'videos'})) {
                     $videos = $response->{'videos'};
-
-                    // TODO Put some cache here
-
-                    // Get first video date
-                    $video = $videos[0];
                     $videovalidated = false;
+                    $video = null;
 
-                    // Checks if video is validated
+                    // There is, at least, one validated video
                     if(!empty($validatedvideos)) {
-                        foreach($validatedvideos as $validatedvideo) {
-                            if(($validatedvideo->videoid === $video->id && $validatedvideo->isvalidated == 1)) {
-                                $videovalidated = true;
-                                break;
+
+                        // Iterate through videos
+                        for($i = 0 ; $i < sizeof($videos) ; $i++) {
+
+                            // Search video in validated videos
+                            foreach($validatedvideos as $validatedvideo) {
+                                if($validatedvideo->isvalidated == 1 && $validatedvideo->videoid === $videos[$i]->id) {
+                                    $video = $videos[$i];
+                                    $videovalidated = true;
+                                    break;
+                                }
                             }
+
+                            if($videovalidated)
+                                break;
                         }
                     }
 
@@ -111,6 +116,10 @@ class block_openveo_videos extends block_base {
 
                         // Url for the list of videos associated to this course id
                         $videosurl = $CFG->wwwroot.'/blocks/openveo_videos/view.php?courseid='.$courseid;
+
+                        if(!empty($video)) {
+
+                            // Got a video
 
                         // Path to the video
                         $videopath = $CFG->wwwroot.'/blocks/openveo_videos/player.php?courseid='.$courseid.'&videoid='.$video->id;
@@ -127,13 +136,18 @@ class block_openveo_videos extends block_base {
 
                         // Build content
                         $this->content->text = $this->render_block($video->title, $video->description, $videodate, $videosurl, $videopath, $thumbnailpath, $videovalidated);
+
+                        } else {
+
+                            // No video
+
+                            $this->content->text = $this->render_block(null, null, null, $videosurl);
+                        }
+
                     }
                 }
             }
-            catch(RestClientException $e) {
-                // TODO Log the error when Moodle has a good way to do it
-            }
-            catch(OpenveoWSException $e) {
+            catch(Exception $e) {
                 // TODO Log the error when Moodle has a good way to do it
             }
 
@@ -192,9 +206,10 @@ class block_openveo_videos extends block_base {
      * @param stdClass $videodate The video date with day, month and year
      * @param string $videosurl Url to the list of videos associated to the course
      * @param string $videopath The url to the video
+     * @param string $videothumb The url to the video thumbnail
      * @param bool $videovalidated true if video is validated, false otherwise
      */
-    private function render_block($videotitle, $videodescription, $videodate, $videosurl, $videopath, $videothumb, $videovalidated) {
+    private function render_block($videotitle = null, $videodescription = null, $videodate = null, $videosurl = null, $videopath = null, $videothumb = null, $videovalidated = false) {
         global $CFG;
         $pluginPath = $CFG->wwwroot.'/blocks/openveo_videos/';
         $serverhost = get_config('openveo_videos', 'serverhost');
