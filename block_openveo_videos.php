@@ -199,6 +199,21 @@ class block_openveo_videos extends block_base {
     }
 
     /**
+     * Removes block general configuration when uninstalling.
+     */
+    function before_delete() {
+        set_config('serverport', null, 'openveo_videos');
+        set_config('clientid', null, 'openveo_videos');
+        set_config('clientsecret', null, 'openveo_videos');
+        set_config('videospath', null, 'openveo_videos');
+        set_config('wsserverhost', null, 'openveo_videos');
+        set_config('wsserverport', null, 'openveo_videos');
+        set_config('wsclientid', null, 'openveo_videos');
+        set_config('wsclientsecret', null, 'openveo_videos');
+        set_config('videoproperty', null, 'openveo_videos');
+    }
+
+    /**
      * Renders the block using the block template.
      *
      * @param string $videotitle The video title
