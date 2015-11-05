@@ -19,11 +19,9 @@
   border-bottom: 25px solid transparent;
   transition: border-color 0.4s ease;
 }
-.ov-block-content:hover .play {
+.ov-block-content .placeholder:hover .play {
   border-left: 40px solid #1bbbe9;
 }
-.ov-block-content:hover .placeholder {
-  background-color:#fff;
+.ov-block-content .placeholder:hover {
+  background-color: #fff;
 }
-/* List of videos */
-body{ background-color: orange; }

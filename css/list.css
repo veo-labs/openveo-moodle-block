@@ -21,9 +21,9 @@
   transition: border-color 0.4s ease;
 }
 
-.ov-list-content tr:hover .placeholder {
+.ov-list-content tr .placeholder:hover {
   background-color:#fff;
 }
-.ov-list-content tr:hover .play {
+.ov-list-content tr .placeholder:hover .play {
   border-left: 35px solid #1bbbe9;
 }
