@@ -39,7 +39,7 @@ $string['genconfadvdesc'] = 'Ces paramètres ne doivent être modifiés que par 
 $string['genconfadvvideospathlabel'] = 'Chemin vidéos';
 $string['genconfadvvideospathdesc'] = 'Le point d\'entrée Web Service pour obtenir la liste des vidéos';
 $string['genconfadvvideoproplabel'] = 'Propriété vidéo';
-$string['genconfadvvideopropdesc'] = 'La propriété de la video Openveo pour filtrer les vidéos';
+$string['genconfadvvideopropdesc'] = 'La propriété de la vidéo Openveo contenant l\'id du cours';
 
 // Instance configuration form
 $string['inconfblocktitlelabel'] = 'Vidéos';
