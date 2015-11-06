@@ -1,6 +1,10 @@
 /* Block */
 .ov-block-content img{ width: 100%; border: 1px solid #f1f1f1; }
-.ov-block-content .placeholder{
+.ov-block-content a{ position: relative; display: block; }
+.ov-block-content .ov-play{ position: absolute; top: 0px; display: block; width: 100%; height: 100%; }
+.ov-block-content .ov-play > div{ display: table; width: 100%; height: 100%; }
+.ov-block-content .ov-play > div > div{ display: table-cell; vertical-align: middle; }
+.ov-block-content .ov-placeholder{
   width:100%;
   min-height: 200px;
   background-color: #eee;
@@ -8,20 +12,18 @@
   position: relative;
   border-radius: 20px;
 }
-.ov-block-content .play {
-  position: absolute;
-  left: 46%;
-  top: 38%;
+.ov-block-content .ov-play-icon {
   width: 0;
   height: 0;
+  margin: 0 auto;
   border-top: 25px solid transparent;
   border-left: 40px solid #fff;
   border-bottom: 25px solid transparent;
   transition: border-color 0.4s ease;
 }
-.ov-block-content .placeholder:hover .play {
+.ov-block-content a:hover .ov-play-icon {
   border-left: 40px solid #1bbbe9;
 }
-.ov-block-content .placeholder:hover {
+.ov-block-content a:hover .ov-placeholder {
   background-color: #fff;
 }

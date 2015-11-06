@@ -112,6 +112,7 @@ use Openveo\Client\Client as OpenveoClient;
 $pluginPath = $CFG->wwwroot.'/blocks/openveo_videos/';
 $tableofvideostovalidate = new html_table();
 $tableofvideosvalidated = new html_table();
+
 try {
     $param = [
         'sortBy' => 'date',
@@ -162,12 +163,17 @@ try {
 
             // Image
             $videopath = $pluginPath.'player.php?courseid='.$courseid.'&videoid='.$video->id;
-            $videoThumb = isset($video->thumbnail) ? html_writer::img('http://'.$serverhost.':'.$serverport.$video->thumbnail, $video->title) : '';
-            $row[] = '<a href="'.$videopath.'" title="'.$video->title.'">'.
-                '<div class="placeholder">'.
-                $videoThumb.
-                '<div class="play"></div>'.
-                '</div></a>';
+            $videoThumb = isset($video->thumbnail) ? html_writer::tag('img', '', array('src' => 'http://'.$serverhost.':'.$serverport.$video->thumbnail, 'alt' => $video->title)) : '';
+
+            $rowHtml = '<a href="'.$videopath.'" title="'.$video->title.'">';
+
+            if(!empty($videoThumb))
+              $rowHtml .= $videoThumb;
+            else
+              $rowHtml .= '<div class="ov-placeholder"></div>';
+
+            $rowHtml .= '<div class="ov-play"><div><div><div class="ov-play-icon"></div></div></div></div>';
+            $row[] = $rowHtml;
 
             // Name
             $row[] = $video->title;

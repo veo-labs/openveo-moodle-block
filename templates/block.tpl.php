@@ -23,11 +23,17 @@
   <?php if($videovalidated): ?>
     <h4><?php print $videotitle; ?></h4>
     <a href="<?php print $videopath; ?>" title="<?php print $videotitle; ?>">
-      <div class='placeholder'>
         <?php if(!empty($videothumb)): ?>
           <img src="<?php print 'http://'.$serverhost.':'.$serverport.$videothumb; ?>" alt="<?php print $videotitle; ?>" />
+      <?php else: ?>
+        <div class="ov-placeholder"></div>
         <?php endif; ?>
-        <div class='play'></div>
+      <div class="ov-play">
+        <div>
+          <div>
+            <div class="ov-play-icon"></div>
+          </div>
+        </div>
       </div>
     </a>
     <div class="mdl-right"><?php print get_string('blockvideodate', 'block_openveo_videos', $videodate); ?></div>
