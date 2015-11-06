@@ -9,12 +9,12 @@
  * @param string $tableofvideos The list of validated videos as HTML
  * @package block_openveo_videos
  * @param string $tableofvideostovalidate The list of videos to validate as HTML
- * @param bool $caneditlist true if user can edit the list of videos, false otherwise
+ * @param bool $hasCapabilityToEdit true if user can edit the list of videos, false otherwise
  * @copyright 2015, veo-labs <info@veo-labs.com>
  * @license TODO
  */
 ?>
-<?php if($caneditlist): ?>
+<?php if($hasCapabilityToEdit): ?>
   <h3><?php print get_string('listvalidatedvideostitle', 'block_openveo_videos'); ?></h3>
 <?php endif; ?>
 
@@ -22,7 +22,7 @@
   <?php echo $tableofvideos; ?>
 </div>
 
-<?php if($caneditlist): ?>
+<?php if($hasCapabilityToEdit): ?>
   <h3><?php print get_string('listnotvalidatedvideostitle', 'block_openveo_videos'); ?></h3>
   <div class="ov-list-content">
     <?php echo $tableofvideostovalidate; ?>

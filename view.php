@@ -18,11 +18,11 @@ global $DB, $OUTPUT, $PAGE, $USER, $CFG, $FULLSCRIPT;
 
 /**
  * Renders the list of videos.
- * @param string Table of validated videos as HTML
- * @param string Table of not validated videos as HTML
- * @param bool true if the actual user can edit the list (validate / unvalidate)
+ * @param string $tableofvideos Table of validated videos as HTML
+ * @param string $tableofvideostovalidate Table of not validated videos as HTML
+ * @param bool $hasCapabilityToEdit true if the actual user can edit the list (validate / unvalidate)
  */
-function block_openveo_videos_render_list($tableofvideos, $tableofvideostovalidate, $caneditlist) {
+function block_openveo_videos_render_list($tableofvideos, $tableofvideostovalidate, $hasCapabilityToEdit) {
     global $CFG;
     $pluginPath = $CFG->wwwroot.'/blocks/openveo_videos/';
     ob_start();
@@ -76,19 +76,19 @@ if (!$course = $DB->get_record('course', array('id' => $courseid))) {
 require_login($course);
 $context = context_course::instance($COURSE->id);
 $isEnrolled = is_enrolled($context);
+$hasCapabilityToEdit = has_capability('block/openveo_videos:edit', $context);
 
-if(!$isEnrolled && !has_capability('block/openveo_videos:viewlist', $context)) {
+// User can't see this page
+// Only enrolled or block editors can see the list
+if(!$isEnrolled && !$hasCapabilityToEdit) {
     print_error('listaccessrefused', 'block_openveo_videos');
 }
-
-// Checks if user can validate / unvalidate videos
-$caneditlist = has_capability('block/openveo_videos:editlist', $context);
 
 // Handles actions
 $action = optional_param('action', null, PARAM_TEXT);
 $videoid = optional_param('videoid', null, PARAM_TEXT);
 
-if(!empty($action) && !empty($videoid) && $caneditlist){
+if(!empty($action) && !empty($videoid) && $hasCapabilityToEdit){
     if($action === 'validate')
       block_openveo_videos_update_video($course->idnumber, $videoid, true);
     else if($action === 'unvalidate')
@@ -136,7 +136,7 @@ try {
         $videos = $response->{'videos'};
         $tableheaders = array(get_string('listtablepictureheader', 'block_openveo_videos'), get_string('listtablenameheader', 'block_openveo_videos'), get_string('listtabledateheader', 'block_openveo_videos'));
 
-        if($caneditlist) {
+        if($hasCapabilityToEdit) {
             $tableheaders[] = get_string('listtableactionheader', 'block_openveo_videos');
             $tableofvideostovalidate->head = $tableheaders;
         }
@@ -161,7 +161,7 @@ try {
             }
 
             // Image
-            $videopath = $pluginPath.'/player.php?courseid='.$courseid.'&videoid='.$video->id;
+            $videopath = $pluginPath.'player.php?courseid='.$courseid.'&videoid='.$video->id;
             $videoThumb = isset($video->thumbnail) ? html_writer::img('http://'.$serverhost.':'.$serverport.$video->thumbnail, $video->title) : '';
             $row[] = '<a href="'.$videopath.'" title="'.$video->title.'">'.
                 '<div class="placeholder">'.
@@ -185,14 +185,14 @@ try {
             if($videovalidated) {
 
               // Action
-              if($caneditlist)
+              if($hasCapabilityToEdit)
                 $row[] = html_writer::link($FULLSCRIPT.'?courseid='.$courseid.'&action=unvalidate&videoid='.$video->id, get_string('listvideounvalidate', 'block_openveo_videos'));
 
               $tableofvideosvalidated->data[] = $row;
             }
 
             // Insert video in not validated table
-            else if(has_capability('block/openveo_videos:editlist', $context)) {
+            else if($hasCapabilityToEdit) {
 
               // Action
               $row[] = html_writer::link($FULLSCRIPT.'?courseid='.$courseid.'&action=validate&videoid='.$video->id, get_string('listvideovalidate', 'block_openveo_videos'));
@@ -203,11 +203,10 @@ try {
         }
     }
 }
-catch(RestClientException $e) {
-    // TODO Log the error when Moodle has a good way to do it
-}
-catch(OpenveoWSException $e) {
-    // TODO Log the error when Moodle has a good way to do it
+catch(Exception $e) {
+
+    // TODO Log the error
+
 }
 
 // Set page url to call when returning to this page
@@ -229,5 +228,5 @@ $editnode = $settingsnode->add(get_string('listsettingslink', 'block_openveo_vid
 $editnode->make_active();
 
 echo $OUTPUT->header();
-echo block_openveo_videos_render_list(html_writer::table($tableofvideosvalidated), html_writer::table($tableofvideostovalidate), $caneditlist);
+echo block_openveo_videos_render_list(html_writer::table($tableofvideosvalidated), html_writer::table($tableofvideostovalidate), $hasCapabilityToEdit);
 echo $OUTPUT->footer();

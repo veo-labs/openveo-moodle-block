@@ -68,10 +68,9 @@ $string['listnotvalidatedvideostitle'] = 'Video(s) to validate';
 // Player
 $string['playertitle'] = '{$a}';
 $string['playerinvalidvideo'] = 'You don\'t have permission to access this video';
+$string['playeraccessrefused'] = 'You don\'t have permission to access this page';
+$string['playerinvalidcourse'] = 'The course you\'re looking for does not exist';
 
 // Capabilities
 $string['openveo_videos:addinstance'] = 'Add a new OpenVeo videos block';
-$string['openveo_videos:viewlist'] = 'View the list of videos of a course while not enrolled';
-$string['openveo_videos:editlist'] = 'Edit the list of videos of a course';
-$string['openveo_videos:viewblock'] = 'View the block while not enrolled';
-$string['openveo_videos:viewvideo'] = 'View the video while not enrolled and video not validated';
+$string['openveo_videos:edit'] = 'Edit videos associated to a course';

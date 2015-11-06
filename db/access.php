@@ -8,10 +8,7 @@
  *
  * Permissions :
  * - addinstance : permission to add the block to a page
- * - viewblock : permission to see the block
- * - viewlist : permission to see the list of videos
- * - editlist : permission to edit the list of videos
- * - viewvideo : permission to play a video
+ * - edit : permission to edit block videos
  *
  * @package block_openveo_videos
  * @copyright 2015, veo-labs <info@veo-labs.com>
@@ -20,7 +17,7 @@
 defined('MOODLE_INTERNAL') || die;
 
 $capabilities = array(
-    
+
     'block/openveo_videos:addinstance' => array(
         'riskbitmask' => RISK_SPAM | RISK_XSS,
         'captype' => 'write',
@@ -30,33 +27,11 @@ $capabilities = array(
             'editingteacher' => CAP_ALLOW,
             'manager' => CAP_ALLOW
         ),
- 
+
         'clonepermissionsfrom' => 'moodle/site:manageblocks'
     ),
-  
-    'block/openveo_videos:viewblock' => array(
-        'captype' => 'read',
-        'contextlevel' => CONTEXT_BLOCK,
-        'archetypes' => array(
-            'coursecreator' => CAP_ALLOW,
-            'teacher' => CAP_ALLOW,
-            'editingteacher' => CAP_ALLOW,
-            'manager' => CAP_ALLOW
-        )
-    ),
-  
-    'block/openveo_videos:viewlist' => array(
-        'captype' => 'read',
-        'contextlevel' => CONTEXT_BLOCK,
-        'archetypes' => array(
-            'coursecreator' => CAP_ALLOW,
-            'teacher' => CAP_ALLOW,
-            'editingteacher' => CAP_ALLOW,
-            'manager' => CAP_ALLOW
-        )
-    ),
-  
-    'block/openveo_videos:editlist' => array(
+
+    'block/openveo_videos:edit' => array(
         'riskbitmask' => RISK_SPAM,
         'captype' => 'write',
         'contextlevel' => CONTEXT_BLOCK,
@@ -66,16 +41,5 @@ $capabilities = array(
             'manager' => CAP_ALLOW
         )
     ),
-  
-    'block/openveo_videos:viewvideo' => array(
-        'riskbitmask' => RISK_SPAM,
-        'captype' => 'read',
-        'contextlevel' => CONTEXT_BLOCK,
-        'archetypes' => array(
-            'coursecreator' => CAP_ALLOW,
-            'editingteacher' => CAP_ALLOW,
-            'manager' => CAP_ALLOW
-        )
-    ),
-    
+
  );

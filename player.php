@@ -36,22 +36,24 @@ $videoid = required_param('videoid', PARAM_TEXT);
 
 // Retrieve course information
 if(!$course = $DB->get_record('course', array('id' => $courseid))) {
-    print_error('listinvalidcourse', 'block_openveo_videos');
+    print_error('playerinvalidcourse', 'block_openveo_videos');
 }
 
 // Checks if user has access to the page or not
 require_login($course);
 $context = context_course::instance($COURSE->id);
 $isEnrolled = is_enrolled($context);
+$hasCapabilityToEdit = has_capability('block/openveo_videos:edit', $context);
 
-if(!$isEnrolled && !has_capability('block/openveo_videos:viewvideo', $context)) {
-    print_error('listaccessrefused', 'block_openveo_videos');
+// User can't see this page
+// Only enrolled or block editors can see the player
+if(!$isEnrolled && !$hasCapabilityToEdit) {
+    print_error('playeraccessrefused', 'block_openveo_videos');
 }
 
 // Checks if video is validated
-$video = $DB->get_record('block_openveo_videos', array('videoid' => $videoid, 'courseid' => $courseid));
-if((!$video || $video->isvalidated == 0)
-   && !has_capability('block/openveo_videos:viewvideo', $context)) {
+// Video does not exist or user can't see it
+if((!$video || ($video->isvalidated == 0 && !$hasCapabilityToEdit))) {
     print_error('playerinvalidvideo', 'block_openveo_videos');
 }
 

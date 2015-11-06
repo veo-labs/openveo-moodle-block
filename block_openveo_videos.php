@@ -54,10 +54,12 @@ class block_openveo_videos extends block_base {
         // Checks if user has the permission to see the block and its
         // content
         $isEnrolled = is_enrolled($context);
-        $hasCapability = has_capability('block/openveo_videos:viewblock', $context);
+        $hasCapabilityToEdit = has_capability('block/openveo_videos:edit', $context);
 
         // User has the permission to see the block
-        if(!empty($courseid) && ($isEnrolled || $hasCapability)) {
+        // All enrolled users can see the block
+        // If a user is not enrolled, he can not see the block unless he can edit it
+        if(!empty($courseid) && ($isEnrolled || $hasCapabilityToEdit)) {
             $this->content = new StdClass();
 
             // Retrieve block configuration
@@ -112,14 +114,13 @@ class block_openveo_videos extends block_base {
                         }
                     }
 
-                    if($videovalidated || has_capability('block/openveo_videos:viewblock', $context)) {
+                    // Url for the list of videos associated to this course id
+                    $videosurl = $CFG->wwwroot.'/blocks/openveo_videos/view.php?courseid='.$courseid;
 
-                        // Url for the list of videos associated to this course id
-                        $videosurl = $CFG->wwwroot.'/blocks/openveo_videos/view.php?courseid='.$courseid;
+                    if(!empty($video) && $videovalidated) {
 
-                        if(!empty($video)) {
-
-                            // Got a video
+                        // Got a video for the block
+                        // Display block
 
                         // Path to the video
                         $videopath = $CFG->wwwroot.'/blocks/openveo_videos/player.php?courseid='.$courseid.'&videoid='.$video->id;
@@ -137,18 +138,19 @@ class block_openveo_videos extends block_base {
                         // Build content
                         $this->content->text = $this->render_block($video->title, $video->description, $videodate, $videosurl, $videopath, $thumbnailpath, $videovalidated);
 
-                        } else {
+                    } else if($hasCapabilityToEdit) {
 
-                            // No video
+                        // No video for the block but there are videos associated to the course
+                        // Display an empty block with a link to the list of videos
 
-                            $this->content->text = $this->render_block(null, null, null, $videosurl);
-                        }
-
+                        $this->content->text = $this->render_block(null, null, null, $videosurl);
                     }
                 }
             }
             catch(Exception $e) {
-                // TODO Log the error when Moodle has a good way to do it
+
+                // TODO Log the error
+
             }
 
         }
