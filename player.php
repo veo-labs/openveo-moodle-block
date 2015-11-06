@@ -51,6 +51,8 @@ if(!$isEnrolled && !$hasCapabilityToEdit) {
     print_error('playeraccessrefused', 'block_openveo_videos');
 }
 
+$video = $DB->get_record('block_openveo_videos', array('videoid' => $videoid, 'courseid' => $COURSE->idnumber));
+
 // Checks if video is validated
 // Video does not exist or user can't see it
 if((!$video || ($video->isvalidated == 0 && !$hasCapabilityToEdit))) {
