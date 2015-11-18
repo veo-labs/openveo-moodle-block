@@ -129,7 +129,7 @@ class block_openveo_videos extends block_base {
                         $thumbnailpath = isset($video->thumbnail) ? $video->thumbnail : null;
 
                         // Build video date
-                        $viveomoodledate = usergetdate($video->metadata->date);
+                        $viveomoodledate = usergetdate($video->date/1000);
                         $videodate = new StdClass();
                         $videodate->day = ($viveomoodledate['mday'] < 10) ? '0'.$viveomoodledate['mday'] : $viveomoodledate['mday'];
                         $videodate->month = ($viveomoodledate['mon'] < 10) ? '0'.$viveomoodledate['mon'] : $viveomoodledate['mon'];
