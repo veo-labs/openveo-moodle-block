@@ -1,14 +1,12 @@
 <?php
 // This file is part of OpenVeo - http://www.veo-labs.com/suite-logicielle-openveo
-//
-// TODO : Add License information here
 
 /**
  * openveo_videos block definition.
  *
  * @package block_openveo_videos
  * @copyright 2015, veo-labs <info@veo-labs.com>
- * @license TODO
+ * @license AGPL
  */
 
 require_once('require_openveo.php');
@@ -21,7 +19,7 @@ use Openveo\Client\Client as OpenveoClient;
  *
  * @package block_openveo_videos
  * @copyright 2015, veo-labs <info@veo-labs.com>
- * @license TODO
+ * @license AGPL
  */
 class block_openveo_videos extends block_base {
 

@@ -1,18 +1,18 @@
 # OpenVeo Moodle Block
 
-OpenVeo Moodle Block is a Moodle block plugin which communicate with [Openveo Publish](http://veo-labs.github.io/openveo-publish/1.0.1) services.
+OpenVeo Moodle Block is a Moodle block plugin which communicate with [Openveo Publish](https://github.com/veo-labs/openveo-publish) services.
 
 OpenVeo Moodle Block adds the following features :
 
-- Add a video block on a course to see the latest video avalaible on [Openveo Publish](http://veo-labs.github.io/openveo-publish/1.0.1) related to a course ID
-- List all videos [Openveo Publish](http://veo-labs.github.io/openveo-publish/1.0.1) related to a course ID
+- Add a video block on a course to see the latest video avalaible on [Openveo Publish](https://github.com/veo-labs/openveo-publish) related to a course ID
+- List all videos [Openveo Publish](https://github.com/veo-labs/openveo-publish) related to a course ID
 - Administrate published videos inside moodle to add a validation level
 - Display the Openveo Player with slides and chapters sync in a moodle page
 
 # Getting Started
 
 ## Prerequisites
-- Download a zip file from the latest stable  [Openveo Rest Client](https://github.com/veo-labs/openveo-rest-php-client/tree/1.0.0) dependency
+- Download a zip file from the latest stable  [Openveo Rest Client](https://github.com/veo-labs/openveo-rest-php-client) dependency
 
 ## Installation
 - Download a zip file from this repository.

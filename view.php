@@ -1,7 +1,5 @@
 <?php
 // This file is part of OpenVeo - http://www.veo-labs.com/suite-logicielle-openveo
-//
-// TODO : Add License information here
 
 /**
  * Presents the list of videos.
@@ -10,7 +8,7 @@
  *
  * @package block_openveo_videos
  * @copyright 2015, veo-labs <info@veo-labs.com>
- * @license TODO
+ * @license AGPL
  */
 
 require_once('../../config.php');

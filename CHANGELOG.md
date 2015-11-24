@@ -1,0 +1,10 @@
+# 1.0.0 / 2015-11-24
+
+Firt stable version of [OpenVeo](https://github.com/veo-labs/openveo-core) Moodle Block plugin.
+
+Adds the following features :
+
+- Add a video block on a course to see the latest video avalaible on [Openveo Publish](https://github.com/veo-labs/openveo-publish) related to a course ID
+- List all video related to a course ID
+- Administrate published video inside Moodle to add a validation level
+- Display the Openveo Player with slides and chapters sync in a Moodle page
