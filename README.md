@@ -12,7 +12,7 @@ OpenVeo Moodle Block adds the following features :
 # Getting Started
 
 ## Prerequisites
-- Download a zip file from the latest stable  [Openveo Rest Client](https://github.com/veo-labs/openveo-rest-php-client) dependency
+- Download a zip file from the latest stable [Openveo Rest Client](https://github.com/veo-labs/openveo-rest-php-client) dependency
 
 ## Installation
 - Download a zip file from this repository.

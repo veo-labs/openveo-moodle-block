@@ -1,3 +1,8 @@
+# 1.0.1 / 2016-20-18
+
+- Add compatibility for OpenVeo 1.2.0.
+- Correct bug when trying to visualize a video before it was first validated
+
 # 1.0.0 / 2015-11-24
 
 Firt stable version of [OpenVeo](https://github.com/veo-labs/openveo-core) Moodle Block plugin.

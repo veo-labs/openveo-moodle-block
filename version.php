@@ -12,7 +12,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'block_openveo_videos';
-$plugin->version = 2016021500;
+$plugin->version = 2016021800;
 $plugin->requires = 2013051409;
 $plugin->maturity = MATURITY_STABLE;
 $plugin->release = '1.0.1';
