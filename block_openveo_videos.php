@@ -72,6 +72,7 @@ class block_openveo_videos extends block_base {
                 $param = [
                     'sortBy' => 'date',
                     'sortOrder' => 'asc',
+                    'states' => 12,
                     'properties' => [
                         $videoproperty => $COURSE->idnumber
                     ]

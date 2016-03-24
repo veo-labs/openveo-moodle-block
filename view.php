@@ -115,6 +115,7 @@ try {
     $param = [
         'sortBy' => 'date',
         'sortOrder' => 'asc',
+        'states' => 12,
         'properties' => [
             $videoproperty => $course->idnumber
         ]
