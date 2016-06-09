@@ -11,6 +11,36 @@
 
 defined('MOODLE_INTERNAL') || die;
 
+// Get the list of videos
+require_once('require_openveo.php');
+use Openveo\Client\Client as OpenveoClient;
+
+// Retrieve block configuration
+$wsserverhost = get_config('openveo_videos', 'wsserverhost');
+$wsserverport = get_config('openveo_videos', 'wsserverport');
+$clientid = get_config('openveo_videos', 'wsclientid');
+$clientsecret = get_config('openveo_videos', 'wsclientsecret');
+
+$properties;
+$choices = array();
+try {
+    $url = 'http://'.$wsserverhost.':'.$wsserverport.'/publish/properties';
+
+    // Make an authentication to the OpenVeo Web Service
+    $client = new OpenveoClient($clientid, $clientsecret, $wsserverhost, $wsserverport);
+
+    // Get all videos associated to the course
+    $response = $client->get($url);
+    if(isset($response->entities)) {
+        $properties = $response->entities;
+        for ($i = 0; $i < count($properties); $i++){
+            $choices[$properties[$i]->id] = $properties[$i]->name;
+        }
+    }
+} catch(Exception $e) {
+
+}
+
 // Application configuration fieldset
 $settings->add(new admin_setting_heading(
             'openveo_videos/headerconfig',
@@ -79,27 +109,18 @@ $settings->add(new admin_setting_configtext(
             PARAM_ALPHANUM
         ));
 
-// Advanced settings fieldset
+    // Advanced settings fieldset
 $settings->add(new admin_setting_heading(
-            'openveo_videos/advancedconfig',
-            get_string('genconfadvheader', 'block_openveo_videos'),
-            get_string('genconfadvdesc', 'block_openveo_videos')
-        ));
+    'openveo_videos/advancedconfig',
+    get_string('genconfadvheader', 'block_openveo_videos'),
+    get_string(!empty($choices)?'genconfadvdesc':'genconfadvdescbadparams', 'block_openveo_videos')
+    ));
 
-// Videos path
-$settings->add(new admin_setting_configtext(
-            'openveo_videos/videospath',
-            get_string('genconfadvvideospathlabel', 'block_openveo_videos'),
-            get_string('genconfadvvideospathdesc', 'block_openveo_videos'),
-            'publish/videos',
-            PARAM_SAFEPATH
-        ));
-
-// Videos property
-$settings->add(new admin_setting_configtext(
-            'openveo_videos/videoproperty',
-            get_string('genconfadvvideoproplabel', 'block_openveo_videos'),
-            get_string('genconfadvvideopropdesc', 'block_openveo_videos'),
-            'moodle',
-            PARAM_TEXT
-        ));
+    // Videos property
+$settings->add(new admin_setting_configselect(
+    'openveo_videos/videoproperty',
+    get_string('genconfadvvideoproplabel', 'block_openveo_videos'),
+    get_string('genconfadvvideopropdesc', 'block_openveo_videos'),
+    'moodle',
+    $choices
+));

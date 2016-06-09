@@ -65,7 +65,6 @@ class block_openveo_videos extends block_base {
             $serverport = get_config('openveo_videos', 'wsserverport');
             $clientid = get_config('openveo_videos', 'wsclientid');
             $clientsecret = get_config('openveo_videos', 'wsclientsecret');
-            $videospath = get_config('openveo_videos', 'videospath');
             $videoproperty = get_config('openveo_videos', 'videoproperty');
 
             try {
@@ -78,7 +77,7 @@ class block_openveo_videos extends block_base {
                     ]
                 ];
                 $query = http_build_query($param, '', '&');
-                $url = 'http://' . $serverhost . ':' . $serverport . '/' . $videospath . '?' . $query;
+                $url = 'http://' . $serverhost . ':' . $serverport . '/publish/videos?' . $query;
 
                 // Make an authentication to the OpenVeo Web Service
                 $client = new OpenveoClient($clientid, $clientsecret, $serverhost, $serverport);
@@ -88,8 +87,8 @@ class block_openveo_videos extends block_base {
                 $validatedvideos = $DB->get_records('block_openveo_videos', array('isvalidated' => 1, 'courseid' => $COURSE->idnumber));
 
                 // Got a list of videos
-                if(isset($response->{'videos'}) && !empty($response->{'videos'})) {
-                    $videos = $response->{'videos'};
+                if(isset($response->entities) && !empty($response->entities)) {
+                    $videos = $response->entities;
                     $videovalidated = false;
                     $video = null;
 
@@ -128,11 +127,11 @@ class block_openveo_videos extends block_base {
                         $thumbnailpath = isset($video->thumbnail) ? $video->thumbnail : null;
 
                         // Build video date
-                        $viveomoodledate = usergetdate($video->date/1000);
+                        $videomoodledate = usergetdate($video->date/1000);
                         $videodate = new StdClass();
-                        $videodate->day = ($viveomoodledate['mday'] < 10) ? '0'.$viveomoodledate['mday'] : $viveomoodledate['mday'];
-                        $videodate->month = ($viveomoodledate['mon'] < 10) ? '0'.$viveomoodledate['mon'] : $viveomoodledate['mon'];
-                        $videodate->year = $viveomoodledate['year'];
+                        $videodate->day = ($videomoodledate['mday'] < 10) ? '0'.$videomoodledate['mday'] : $videomoodledate['mday'];
+                        $videodate->month = ($videomoodledate['mon'] < 10) ? '0'.$videomoodledate['mon'] : $videomoodledate['mon'];
+                        $videodate->year = $videomoodledate['year'];
 
                         // Build content
                         $this->content->text = $this->render_block($video->title, $video->description, $videodate, $videosurl, $videopath, $thumbnailpath, $videovalidated);
@@ -203,10 +202,10 @@ class block_openveo_videos extends block_base {
      * Removes block general configuration when uninstalling.
      */
     function before_delete() {
+        set_config('serverhost', null, 'openveo_videos');
         set_config('serverport', null, 'openveo_videos');
         set_config('clientid', null, 'openveo_videos');
         set_config('clientsecret', null, 'openveo_videos');
-        set_config('videospath', null, 'openveo_videos');
         set_config('wsserverhost', null, 'openveo_videos');
         set_config('wsserverport', null, 'openveo_videos');
         set_config('wsclientid', null, 'openveo_videos');

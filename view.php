@@ -100,7 +100,6 @@ $wsserverhost = get_config('openveo_videos', 'wsserverhost');
 $wsserverport = get_config('openveo_videos', 'wsserverport');
 $clientid = get_config('openveo_videos', 'wsclientid');
 $clientsecret = get_config('openveo_videos', 'wsclientsecret');
-$videospath = get_config('openveo_videos', 'videospath');
 $videoproperty = get_config('openveo_videos', 'videoproperty');
 
 // Get the list of videos
@@ -121,7 +120,7 @@ try {
         ]
     ];
     $query = http_build_query($param, '', '&');
-    $url = 'http://'.$wsserverhost.':'.$wsserverport.'/'.$videospath.'?'.$query;
+    $url = 'http://'.$wsserverhost.':'.$wsserverport.'/publish/videos?'.$query;
 
     // Make an authentication to the OpenVeo Web Service
     $client = new OpenveoClient($clientid, $clientsecret, $wsserverhost, $wsserverport);
@@ -132,8 +131,8 @@ try {
     // Retrieve already validated videos
     $validatedvideos = $DB->get_records('block_openveo_videos', array('isvalidated' => 1, 'courseid' => $course->idnumber));
 
-    if(isset($response->{'videos'})) {
-        $videos = $response->{'videos'};
+    if(isset($response->entities)) {
+        $videos = $response->entities;
         $tableheaders = array(get_string('listtablepictureheader', 'block_openveo_videos'), get_string('listtablenameheader', 'block_openveo_videos'), get_string('listtabledateheader', 'block_openveo_videos'));
 
         if($hasCapabilityToEdit) {
@@ -162,7 +161,7 @@ try {
 
             // Image
             $videopath = $pluginPath.'player.php?courseid='.$courseid.'&videoid='.$video->id;
-            $videoThumb = isset($video->thumbnail) ? html_writer::tag('img', '', array('src' => 'http://'.$serverhost.':'.$serverport.$video->thumbnail, 'alt' => $video->title)) : '';
+            $videoThumb = isset($video->thumbnail) ? html_writer::tag('img', '', array('src' => 'http://'.$wsserverhost.':'.$wsserverport.$video->thumbnail, 'alt' => $video->title)) : '';
 
             $rowHtml = '<a href="'.$videopath.'" title="'.$video->title.'">';
 
