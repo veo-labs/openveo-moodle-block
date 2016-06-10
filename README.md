@@ -12,6 +12,8 @@ OpenVeo Moodle Block adds the following features :
 # Getting Started
 
 ## Prerequisites
+- Install Openveo CMS with Openveo Publish 2.x.x
+- Install Moodle version >2.9.6, 3.0.x ou 3.1
 - Download a zip file from the latest stable [Openveo Rest Client](https://github.com/veo-labs/openveo-rest-php-client) dependency
 
 ## Installation

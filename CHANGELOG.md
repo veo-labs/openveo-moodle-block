@@ -1,7 +1,7 @@
 # 2.0.0 / 2016-20-18
 
-- Set compatibility to OpenveoPublish 2.x.x
-- Lose OpenveoPublish 1.x.x compatibility
+- Set compatibility to Openveo Publish 2.x.x
+- Lose Openveo Publish 1.x.x compatibility
 
 # 1.0.1 / 2016-20-18
 
