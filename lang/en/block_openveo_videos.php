@@ -36,7 +36,7 @@ $string['genconfwsclientsecretdesc'] = 'Moodle client secret to access OpenVeo w
 // Global advanced configuration form
 $string['genconfadvheader'] = 'Web Service advanced configuration';
 $string['genconfadvdesc'] = 'These settings must be modified only by an OpenVeo administrator. Changing these settings may broke the block.';
-$string['genconfadvdescbadparams'] = 'These advanced settings are displayed only when the plug-in can connect to webservices. If advanced settings are not shown after you save webservice settings, please verify above settings';
+$string['genconfadvdescbadparams'] = 'These advanced settings are displayed only when the plug-in can connect to the Web Service. If advanced settings are not shown after saving, please verify above settings and check on OpenVeo if the client has the permission "Get properties".';
 $string['genconfadvvideospathlabel'] = 'Videos path';
 $string['genconfadvvideospathdesc'] = 'The Web Service path to get the list of videos';
 $string['genconfadvvideoproplabel'] = 'Video property';

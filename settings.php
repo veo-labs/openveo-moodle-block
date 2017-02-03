@@ -109,18 +109,18 @@ $settings->add(new admin_setting_configtext(
             PARAM_ALPHANUM
         ));
 
-    // Advanced settings fieldset
+// Advanced settings fieldset
 $settings->add(new admin_setting_heading(
-    'openveo_videos/advancedconfig',
-    get_string('genconfadvheader', 'block_openveo_videos'),
-    get_string(!empty($choices)?'genconfadvdesc':'genconfadvdescbadparams', 'block_openveo_videos')
-    ));
+            'openveo_videos/advancedconfig',
+            get_string('genconfadvheader', 'block_openveo_videos'),
+            get_string(!empty($choices) ? 'genconfadvdesc' : 'genconfadvdescbadparams', 'block_openveo_videos')
+        ));
 
-    // Videos property
+// Videos property
 $settings->add(new admin_setting_configselect(
-    'openveo_videos/videoproperty',
-    get_string('genconfadvvideoproplabel', 'block_openveo_videos'),
-    get_string('genconfadvvideopropdesc', 'block_openveo_videos'),
-    'moodle',
-    $choices
-));
+            'openveo_videos/videoproperty',
+            get_string('genconfadvvideoproplabel', 'block_openveo_videos'),
+            get_string('genconfadvvideopropdesc', 'block_openveo_videos'),
+            'moodle',
+            $choices
+        ));

@@ -36,7 +36,7 @@ $string['genconfwsclientsecretdesc'] = 'Secret client du plugin pour accéder au
 // Global advanced configuration form
 $string['genconfadvheader'] = 'Configuration avancée du Web Service';
 $string['genconfadvdesc'] = 'Ces paramètres ne doivent être modifiés que par un administrateur OpenVeo. Changer ces paramètres peut empêcher le bon fonctionnement du bloc.';
-$string['genconfadvdescbadparams'] = 'La configuration avancée du Web service n\' est affiché que lorsque le plug-in peut se connecter au webservices. Si la configuration avancée n\'aparait pas aprés enregitrement de la configuration du Web Service, veuillez vérifier les informations reneignés ci-dessus.';
+$string['genconfadvdescbadparams'] = 'La configuration avancée du Web service n\'est affichée que lorsque le plug-in peut se connecter au Web Service. Si la configuration avancée n\'aparait pas aprés enregistrement de la configuration, veuillez vérifier les informations renseignées ci-dessus et que, côté OpenVeo, le client possède bien la permission "Récupérer les propriétés".';
 $string['genconfadvvideospathlabel'] = 'Chemin vidéos';
 $string['genconfadvvideospathdesc'] = 'Le point d\'entrée Web Service pour obtenir la liste des vidéos';
 $string['genconfadvvideoproplabel'] = 'Propriété vidéo';
