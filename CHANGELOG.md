@@ -1,9 +1,9 @@
-# 2.0.0 / 2016-20-18
+# 2.0.0 / 2016-06-10
 
 - Set compatibility to Openveo Publish 2.x.x
 - Lose Openveo Publish 1.x.x compatibility
 
-# 1.0.1 / 2016-20-18
+# 1.0.1 / 2016-02-18
 
 - Add compatibility for OpenVeo 1.2.0.
 - Correct bug when trying to visualize a video before it was first validated
