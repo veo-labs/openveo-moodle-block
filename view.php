@@ -161,7 +161,7 @@ try {
 
             // Image
             $videopath = $pluginPath.'player.php?courseid='.$courseid.'&videoid='.$video->id;
-            $videoThumb = isset($video->thumbnail) ? html_writer::tag('img', '', array('src' => 'http://'.$wsserverhost.':'.$wsserverport.$video->thumbnail, 'alt' => $video->title)) : '';
+            $videoThumb = isset($video->thumbnail) ? html_writer::tag('img', '', array('src' => 'http://'.$serverhost.':'.$serverport.$video->thumbnail, 'alt' => $video->title)) : '';
 
             $rowHtml = '<a href="'.$videopath.'" title="'.$video->title.'">';
 
