@@ -1,3 +1,9 @@
+# 2.0.1 / 2017-02-03
+
+## BUG FIXES
+
+- List of videos' thumbnails in the block were not displayed when the Web Service server wasn't exposed. It now uses the OpenVeo application server to get the thumbnails.
+
 # 2.0.0 / 2016-06-10
 
 - Set compatibility to Openveo Publish 2.x.x
