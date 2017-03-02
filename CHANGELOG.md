@@ -1,3 +1,9 @@
+# 3.0.0 /
+
+## BREAKING CHANGES
+
+- Drop support for OpenVeo Publish &lt;3.0.0
+
 # 2.0.1 / 2017-02-03
 
 ## BUG FIXES

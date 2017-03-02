@@ -24,7 +24,7 @@
     <h4><?php print $videotitle; ?></h4>
     <a href="<?php print $videopath; ?>" title="<?php print $videotitle; ?>">
         <?php if(!empty($videothumb)): ?>
-          <img src="<?php print 'http://'.$serverhost.':'.$serverport.$videothumb; ?>" alt="<?php print $videotitle; ?>" />
+          <img src="<?php print $videothumb; ?>" alt="<?php print $videotitle; ?>" />
       <?php else: ?>
         <div class="ov-placeholder"></div>
         <?php endif; ?>
