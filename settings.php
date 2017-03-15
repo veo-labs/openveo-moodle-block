@@ -116,11 +116,15 @@ $settings->add(new admin_setting_heading(
             get_string(!empty($choices) ? 'genconfadvdesc' : 'genconfadvdescbadparams', 'block_openveo_videos')
         ));
 
-// Videos property
-$settings->add(new admin_setting_configselect(
-            'openveo_videos/videoproperty',
-            get_string('genconfadvvideoproplabel', 'block_openveo_videos'),
-            get_string('genconfadvvideopropdesc', 'block_openveo_videos'),
-            'moodle',
-            $choices
-        ));
+if(!empty($choices)){
+
+    // Videos property
+    $settings->add(new admin_setting_configselect(
+                'openveo_videos/videoproperty',
+                get_string('genconfadvvideoproplabel', 'block_openveo_videos'),
+                get_string('genconfadvvideopropdesc', 'block_openveo_videos'),
+                null,
+                $choices
+            ));
+
+}

@@ -7,6 +7,7 @@
 ## BUG FIXES
 
 - Fix french translations for OpenVeo server port configuration
+- Fix infinite configuration page when installing the bloc without having a single OpenVeo Publish custom property or with wrong Web Service configuration
 
 # 2.0.1 / 2017-02-03
 
