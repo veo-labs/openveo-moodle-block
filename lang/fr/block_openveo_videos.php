@@ -18,8 +18,8 @@ $string['genconfheader'] = 'Configuration du serveur';
 $string['genconfdesc'] = 'Configurer l\'accès au serveur OpenVeo. Les vidéos de cours sont stockées sur le serveur OpenVeo.';
 $string['genconfserverhostlabel'] = 'Adresse du serveur';
 $string['genconfserverhostdesc'] = 'L\'adresse du serveur HTTP d\'OpenVeo sans le protocol (ex : 127.0.0.1)';
-$string['genconfserverhostlabel'] = 'Adresse du serveur';
-$string['genconfserverhostdesc'] = 'L\'adresse du serveur HTTP d\'OpenVeo sans le protocol (ex : 127.0.0.1)';
+$string['genconfserverportlabel'] = 'Port du serveur';
+$string['genconfserverportdesc'] = 'Port du serveur HTTP (ex : 3000)';
 
 // Global Web Service configuration form
 $string['genconfwsheader'] = 'Configuration du Web Service';

@@ -4,6 +4,10 @@
 
 - Drop support for OpenVeo Publish &lt;3.0.0
 
+## BUG FIXES
+
+- Fix french translations for OpenVeo server port configuration
+
 # 2.0.1 / 2017-02-03
 
 ## BUG FIXES
