@@ -62,7 +62,7 @@ $settings->add(new admin_setting_configtext(
             'openveo_videos/serverport',
             get_string('genconfserverportlabel', 'block_openveo_videos'),
             get_string('genconfserverportdesc', 'block_openveo_videos'),
-            3000,
+            80,
             PARAM_INT
         ));
 
@@ -87,7 +87,7 @@ $settings->add(new admin_setting_configtext(
             'openveo_videos/wsserverport',
             get_string('genconfwsserverportlabel', 'block_openveo_videos'),
             get_string('genconfwsserverportdesc', 'block_openveo_videos'),
-            3001,
+            8080,
             PARAM_INT
         ));
 

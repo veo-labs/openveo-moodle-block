@@ -19,7 +19,7 @@ $string['genconfdesc'] = 'Configure access to the OpenVeo server. Courses videos
 $string['genconfserverhostlabel'] = 'Server host';
 $string['genconfserverhostdesc'] = 'The OpenVeo HTTP server host without the protocol nor slashes (e.g. 127.0.0.1)';
 $string['genconfserverportlabel'] = 'Server port';
-$string['genconfserverportdesc'] = 'HTTP server port (e.g. 3000)';
+$string['genconfserverportdesc'] = 'HTTP server port (e.g. 80)';
 
 // Global Web Service configuration form
 $string['genconfwsheader'] = 'Web Service configuration';
@@ -27,7 +27,7 @@ $string['genconfwsdesc'] = 'Configure access to the OpenVeo Web Service. Courses
 $string['genconfwsserverhostlabel'] = 'Web Service server host';
 $string['genconfwsserverhostdesc'] = 'The OpenVeo Web Service HTTP server host without the protocol nor slashes (e.g. 127.0.0.1)';
 $string['genconfwsserverportlabel'] = 'Web Service server port';
-$string['genconfwsserverportdesc'] = 'The OpenVeo Web Service HTTP server port (e.g. 3001)';
+$string['genconfwsserverportdesc'] = 'The OpenVeo Web Service HTTP server port (e.g. 8080)';
 $string['genconfwsclientidlabel'] = 'Client id';
 $string['genconfwsclientiddesc'] = 'Moodle client id to access OpenVeo web service (e.g 7c6892011e67ca05be3754137308a01a27ade9f3)';
 $string['genconfwsclientsecretlabel'] = 'Client secret';

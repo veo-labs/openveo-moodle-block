@@ -19,7 +19,7 @@ $string['genconfdesc'] = 'Configurer l\'accès au serveur OpenVeo. Les vidéos d
 $string['genconfserverhostlabel'] = 'Adresse du serveur';
 $string['genconfserverhostdesc'] = 'L\'adresse du serveur HTTP d\'OpenVeo sans le protocol (ex : 127.0.0.1)';
 $string['genconfserverportlabel'] = 'Port du serveur';
-$string['genconfserverportdesc'] = 'Port du serveur HTTP (ex : 3000)';
+$string['genconfserverportdesc'] = 'Port du serveur HTTP (ex : 80)';
 
 // Global Web Service configuration form
 $string['genconfwsheader'] = 'Configuration du Web Service';
@@ -27,7 +27,7 @@ $string['genconfwsdesc'] = 'Configurer l\'accès au Web Service OpenVeo. Les vid
 $string['genconfwsserverhostlabel'] = 'Adresse du Web Service';
 $string['genconfwsserverhostdesc'] = 'L\'adresse du Web Service HTTP d\'OpenVeo sans le protocol (ex : 127.0.0.1)';
 $string['genconfwsserverportlabel'] = 'Port du Web Service';
-$string['genconfwsserverportdesc'] = 'Le port du Web Service HTTP d\'OpenVeo (ex : 3001)';
+$string['genconfwsserverportdesc'] = 'Le port du Web Service HTTP d\'OpenVeo (ex : 8080)';
 $string['genconfwsclientidlabel'] = 'Identifiant client';
 $string['genconfwsclientiddesc'] = 'Identifiant client du plugin pour accéder au Web Service OpenVeo (ex :  7c6892011e67ca05be3754137308a01a27ade9f3)';
 $string['genconfwsclientsecretlabel'] = 'Secret client';
