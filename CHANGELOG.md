@@ -1,3 +1,17 @@
+# 4.0.0 /
+
+## BREAKING CHANGES
+
+- Configuration of OpenVeo and OpenVeo Web Service now excepts the full url instead of the host and port
+
+## NEW FEATURES
+
+- Add HTTPS support for OpenVeo Web Service. It is now possible to connect to the OpenVeo Web Service using HTTPS. Navigate to OpenVeo Videos block configuration to specify the OpenVeo Web Service certificate.
+
+## DEPENDENCIES
+
+- **openveo-rest-php-client** has been updated from 1.0.2 to **2.0.0**
+
 # 3.0.0 / 2017-05-04
 
 ## BREAKING CHANGES

@@ -16,21 +16,20 @@ require_once('require_openveo.php');
 use Openveo\Client\Client as OpenveoClient;
 
 // Retrieve block configuration
-$wsserverhost = get_config('openveo_videos', 'wsserverhost');
-$wsserverport = get_config('openveo_videos', 'wsserverport');
+$wsserverurl = rtrim(get_config('openveo_videos', 'wsserverurl'), '/');
+$wsservercertificate = get_config('openveo_videos', 'wsservercertificate');
 $clientid = get_config('openveo_videos', 'wsclientid');
 $clientsecret = get_config('openveo_videos', 'wsclientsecret');
 
 $properties;
 $choices = array();
 try {
-    $url = 'http://'.$wsserverhost.':'.$wsserverport.'/publish/properties';
 
     // Make an authentication to the OpenVeo Web Service
-    $client = new OpenveoClient($clientid, $clientsecret, $wsserverhost, $wsserverport);
+    $client = new OpenveoClient($wsserverurl, $clientid, $clientsecret, $wsservercertificate);
 
     // Get all videos associated to the course
-    $response = $client->get($url);
+    $response = $client->get('/publish/properties');
     if(isset($response->entities)) {
         $properties = $response->entities;
         for ($i = 0; $i < count($properties); $i++){
@@ -50,20 +49,11 @@ $settings->add(new admin_setting_heading(
 
 // Server host
 $settings->add(new admin_setting_configtext(
-            'openveo_videos/serverhost',
-            get_string('genconfserverhostlabel', 'block_openveo_videos'),
-            get_string('genconfserverhostdesc', 'block_openveo_videos'),
+            'openveo_videos/serverurl',
+            get_string('genconfserverurllabel', 'block_openveo_videos'),
+            get_string('genconfserverurldesc', 'block_openveo_videos'),
             '',
             PARAM_RAW
-        ));
-
-// Server port
-$settings->add(new admin_setting_configtext(
-            'openveo_videos/serverport',
-            get_string('genconfserverportlabel', 'block_openveo_videos'),
-            get_string('genconfserverportdesc', 'block_openveo_videos'),
-            80,
-            PARAM_INT
         ));
 
 // Web service configuration fieldset
@@ -73,22 +63,22 @@ $settings->add(new admin_setting_heading(
             get_string('genconfwsdesc', 'block_openveo_videos')
         ));
 
-// Web Service server host
+// Web Service server url
 $settings->add(new admin_setting_configtext(
-            'openveo_videos/wsserverhost',
-            get_string('genconfwsserverhostlabel', 'block_openveo_videos'),
-            get_string('genconfwsserverhostdesc', 'block_openveo_videos'),
+            'openveo_videos/wsserverurl',
+            get_string('genconfwsserverurllabel', 'block_openveo_videos'),
+            get_string('genconfwsserverurldesc', 'block_openveo_videos'),
             '',
             PARAM_RAW
         ));
 
-// Web Service server port
+// Web Service server certificate path
 $settings->add(new admin_setting_configtext(
-            'openveo_videos/wsserverport',
-            get_string('genconfwsserverportlabel', 'block_openveo_videos'),
-            get_string('genconfwsserverportdesc', 'block_openveo_videos'),
-            8080,
-            PARAM_INT
+            'openveo_videos/wsservercertificate',
+            get_string('genconfwsservercertificatelabel', 'block_openveo_videos'),
+            get_string('genconfwsservercertificatedesc', 'block_openveo_videos'),
+            '',
+            PARAM_RAW
         ));
 
 // Client id

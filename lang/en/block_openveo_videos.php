@@ -16,18 +16,16 @@ $string['pluginname'] = 'OpenVeo videos';
 // Global server configuration form
 $string['genconfheader'] = 'Server configuration';
 $string['genconfdesc'] = 'Configure access to the OpenVeo server. Courses videos are stored in the OpenVeo server.';
-$string['genconfserverhostlabel'] = 'Server host';
-$string['genconfserverhostdesc'] = 'The OpenVeo HTTP server host without the protocol nor slashes (e.g. 127.0.0.1)';
-$string['genconfserverportlabel'] = 'Server port';
-$string['genconfserverportdesc'] = 'HTTP server port (e.g. 80)';
+$string['genconfserverurllabel'] = 'Server url';
+$string['genconfserverurldesc'] = 'The OpenVeo HTTP(S) server host (e.g. https://127.0.0.1)';
 
 // Global Web Service configuration form
 $string['genconfwsheader'] = 'Web Service configuration';
 $string['genconfwsdesc'] = 'Configure access to the OpenVeo Web Service. Courses videos are stored in the OpenVeo server. Moodle OpenVeo videos block uses OpenVeo Web Service to request all videos associated to a course. All fields must be populated to retrieve the list of videos from OpenVeo Web Service. If you haven\'t all the information to complete the form, please contact the OpenVeo administrator.';
-$string['genconfwsserverhostlabel'] = 'Web Service server host';
-$string['genconfwsserverhostdesc'] = 'The OpenVeo Web Service HTTP server host without the protocol nor slashes (e.g. 127.0.0.1)';
-$string['genconfwsserverportlabel'] = 'Web Service server port';
-$string['genconfwsserverportdesc'] = 'The OpenVeo Web Service HTTP server port (e.g. 8080)';
+$string['genconfwsserverurllabel'] = 'Web Service server url';
+$string['genconfwsserverurldesc'] = 'The OpenVeo Web Service HTTP(S) server host (e.g. https://127.0.0.1:1443)';
+$string['genconfwsservercertificatelabel'] = 'OpenVeo Web Service certificate';
+$string['genconfwsservercertificatedesc'] = 'The OpenVeo Web Service certificate absolute path if HTTPS (e.g. /etc/ssl/certs/openveo-ws.pem)';
 $string['genconfwsclientidlabel'] = 'Client id';
 $string['genconfwsclientiddesc'] = 'Moodle client id to access OpenVeo web service (e.g 7c6892011e67ca05be3754137308a01a27ade9f3)';
 $string['genconfwsclientsecretlabel'] = 'Client secret';

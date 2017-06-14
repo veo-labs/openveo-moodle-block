@@ -16,18 +16,16 @@ $string['pluginname'] = 'Vidéos OpenVeo';
 // Global server configuration form
 $string['genconfheader'] = 'Configuration du serveur';
 $string['genconfdesc'] = 'Configurer l\'accès au serveur OpenVeo. Les vidéos de cours sont stockées sur le serveur OpenVeo.';
-$string['genconfserverhostlabel'] = 'Adresse du serveur';
-$string['genconfserverhostdesc'] = 'L\'adresse du serveur HTTP d\'OpenVeo sans le protocol (ex : 127.0.0.1)';
-$string['genconfserverportlabel'] = 'Port du serveur';
-$string['genconfserverportdesc'] = 'Port du serveur HTTP (ex : 80)';
+$string['genconfserverurllabel'] = 'Adresse du serveur';
+$string['genconfserverurldesc'] = 'L\'adresse du serveur HTTP(S) d\'OpenVeo (ex : https://127.0.0.1)';
 
 // Global Web Service configuration form
 $string['genconfwsheader'] = 'Configuration du Web Service';
 $string['genconfwsdesc'] = 'Configurer l\'accès au Web Service OpenVeo. Les vidéos de cours sont stockées sur le serveur OpenVeo. Le plugin "OpenVeo videos" pour Moodle utilise le Web Service OpenVeo afin de récupérer les vidéos associées à un cours. Tous les champs doivent être renseignés pour récupérer la liste des vidéos sur le serveur OpenVeo. Si vous n\'avez pas toutes les informations nécessaires pour remplir le formulaire, merci de contacter l\'administrateur d\'OpenVeo.';
-$string['genconfwsserverhostlabel'] = 'Adresse du Web Service';
-$string['genconfwsserverhostdesc'] = 'L\'adresse du Web Service HTTP d\'OpenVeo sans le protocol (ex : 127.0.0.1)';
-$string['genconfwsserverportlabel'] = 'Port du Web Service';
-$string['genconfwsserverportdesc'] = 'Le port du Web Service HTTP d\'OpenVeo (ex : 8080)';
+$string['genconfwsserverurllabel'] = 'Adresse du Web Service';
+$string['genconfwsserverurldesc'] = 'L\'adresse du Web Service HTTP(S) d\'OpenVeo (ex : https://127.0.0.1:1443)';
+$string['genconfwsservercertificatelabel'] = 'Certificat du Web Service OpenVeo';
+$string['genconfwsservercertificatedesc'] = 'Chemin absolu du certificat du Web Service OpenVeo si HTTPS (ex : /etc/ssl/certs/openveo-ws.pem)';
 $string['genconfwsclientidlabel'] = 'Identifiant client';
 $string['genconfwsclientiddesc'] = 'Identifiant client du plugin pour accéder au Web Service OpenVeo (ex :  7c6892011e67ca05be3754137308a01a27ade9f3)';
 $string['genconfwsclientsecretlabel'] = 'Secret client';

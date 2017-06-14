@@ -14,16 +14,35 @@
  * @copyright 2015, veo-labs <info@veo-labs.com>
  * @license TODO
  */
-function xmldb_block_openveo_videos_upgrade($oldversion) {
+function xmldb_block_openveo_videos_upgrade($oldversion){
     global $DB;
     $dbman = $DB->get_manager();
 
     /// Change the type of the field "videoid" from Integer to String
-    if ($oldversion < 2016021500) {
+    if($oldversion < 2016021500){
         $table = new xmldb_table('block_openveo_videos');
         $field = new xmldb_field('videoid', XMLDB_TYPE_CHAR, '20', null, XMLDB_NOTNULL, null, null, null);
         $dbman->change_field_type($table, $field);
         upgrade_block_savepoint(true, 2016021500, 'openveo_videos');
+    }
+
+    /// Remove config wsserverhost, wsserverport, serverhost, serverport and automatically set the new config wsserverurl and serverurl
+    if($oldversion < 2017061400){
+      $wsserverhost = get_config('openveo_videos', 'wsserverhost');
+      $wsserverport = get_config('openveo_videos', 'wsserverport');
+      $serverhost = get_config('openveo_videos', 'serverhost');
+      $serverport = get_config('openveo_videos', 'serverport');
+
+      if(!empty($wsserverhost) && !empty($wsserverport))
+        set_config('wsserverurl', 'http://'.$wsserverhost.':'.$wsserverport, 'openveo_videos');
+
+      if(!empty($serverhost) && !empty($serverport))
+        set_config('serverurl', 'http://'.$serverhost.':'.$serverport, 'openveo_videos');
+
+      unset_config('wsserverhost', 'openveo_videos');
+      unset_config('wsserverport', 'openveo_videos');
+      unset_config('serverhost', 'openveo_videos');
+      unset_config('serverport', 'openveo_videos');
     }
 
     return true;

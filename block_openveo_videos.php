@@ -61,8 +61,8 @@ class block_openveo_videos extends block_base {
             $this->content = new StdClass();
 
             // Retrieve block configuration
-            $serverhost = get_config('openveo_videos', 'wsserverhost');
-            $serverport = get_config('openveo_videos', 'wsserverport');
+            $serverurl = rtrim(get_config('openveo_videos', 'wsserverurl'), '/');
+            $servercertificate = get_config('openveo_videos', 'wsservercertificate');
             $clientid = get_config('openveo_videos', 'wsclientid');
             $clientsecret = get_config('openveo_videos', 'wsclientsecret');
             $videoproperty = get_config('openveo_videos', 'videoproperty');
@@ -77,12 +77,11 @@ class block_openveo_videos extends block_base {
                     ]
                 ];
                 $query = http_build_query($param, '', '&');
-                $url = 'http://' . $serverhost . ':' . $serverport . '/publish/videos?' . $query;
 
                 // Make an authentication to the OpenVeo Web Service
-                $client = new OpenveoClient($clientid, $clientsecret, $serverhost, $serverport);
+                $client = new OpenveoClient($serverurl, $clientid, $clientsecret, $servercertificate);
 
-                $response = $client->get($url);
+                $response = $client->get('/publish/videos?' . $query);
 
                 $validatedvideos = $DB->get_records('block_openveo_videos', array('isvalidated' => 1, 'courseid' => $COURSE->idnumber));
 
@@ -202,15 +201,15 @@ class block_openveo_videos extends block_base {
      * Removes block general configuration when uninstalling.
      */
     function before_delete() {
-        set_config('serverhost', null, 'openveo_videos');
-        set_config('serverport', null, 'openveo_videos');
-        set_config('clientid', null, 'openveo_videos');
-        set_config('clientsecret', null, 'openveo_videos');
-        set_config('wsserverhost', null, 'openveo_videos');
-        set_config('wsserverport', null, 'openveo_videos');
-        set_config('wsclientid', null, 'openveo_videos');
-        set_config('wsclientsecret', null, 'openveo_videos');
-        set_config('videoproperty', null, 'openveo_videos');
+        unset_config('serverurl', 'openveo_videos');
+        unset_config('clientid', 'openveo_videos');
+        unset_config('clientsecret', 'openveo_videos');
+        unset_config('wsserverurl', 'openveo_videos');
+        unset_config('wsservercertificate', 'openveo_videos');
+        unset_config('wsclientid', 'openveo_videos');
+        unset_config('wsclientsecret', 'openveo_videos');
+        unset_config('wsserverurl', 'openveo_videos');
+        unset_config('videoproperty', 'openveo_videos');
     }
 
     /**
@@ -227,8 +226,6 @@ class block_openveo_videos extends block_base {
     private function render_block($videotitle = null, $videodescription = null, $videodate = null, $videosurl = null, $videopath = null, $videothumb = null, $videovalidated = false) {
         global $CFG;
         $pluginPath = $CFG->wwwroot.'/blocks/openveo_videos/';
-        $serverhost = get_config('openveo_videos', 'serverhost');
-        $serverport = get_config('openveo_videos', 'serverport');
         ob_start();
         require_once(__DIR__.'/templates/block.tpl.php');
         $output = ob_get_contents();

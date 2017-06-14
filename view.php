@@ -94,10 +94,8 @@ if(!empty($action) && !empty($videoid) && $hasCapabilityToEdit){
 }
 
 // Retrieve block configuration
-$serverhost = get_config('openveo_videos', 'serverhost');
-$serverport = get_config('openveo_videos', 'serverport');
-$wsserverhost = get_config('openveo_videos', 'wsserverhost');
-$wsserverport = get_config('openveo_videos', 'wsserverport');
+$wsserverurl = get_config('openveo_videos', 'wsserverurl');
+$wsservercertificate = get_config('openveo_videos', 'wsservercertificate');
 $clientid = get_config('openveo_videos', 'wsclientid');
 $clientsecret = get_config('openveo_videos', 'wsclientsecret');
 $videoproperty = get_config('openveo_videos', 'videoproperty');
@@ -120,13 +118,12 @@ try {
         ]
     ];
     $query = http_build_query($param, '', '&');
-    $url = 'http://'.$wsserverhost.':'.$wsserverport.'/publish/videos?'.$query;
 
     // Make an authentication to the OpenVeo Web Service
-    $client = new OpenveoClient($clientid, $clientsecret, $wsserverhost, $wsserverport);
+    $client = new OpenveoClient($wsserverurl, $clientid, $clientsecret, $wsservercertificate);
 
     // Get all videos associated to the course
-    $response = $client->get($url);
+    $response = $client->get('/publish/videos?'.$query);
 
     // Retrieve already validated videos
     $validatedvideos = $DB->get_records('block_openveo_videos', array('isvalidated' => 1, 'courseid' => $course->idnumber));

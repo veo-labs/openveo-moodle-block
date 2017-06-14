@@ -58,15 +58,10 @@ if(((!$video && !$hasCapabilityToEdit) || ($video && $video->isvalidated == 0 &&
 }
 
 // Retrieve OpenVeo serveur configuration
-$serverhost = get_config('openveo_videos', 'serverhost');
-$serverport = get_config('openveo_videos', 'serverport');
+$serverurl = rtrim(get_config('openveo_videos', 'serverurl'), '/');
 
 // Build video url
-$videourl = 'http://'.trim($serverhost, '/');
-if(!empty($serverport))
-    $videourl .= ':'.$serverport;
-
-$videourl = $videourl.'/publish/video/'.$videoid.'?fullscreen';
+$videourl = $serverurl.'/publish/video/'.$videoid.'?fullscreen';
 
 // Set page url to call when returning to this page
 $PAGE->set_url('/blocks/openveo_videos/player.php', array('courseid' => $courseid, 'videoid' => $videoid));
