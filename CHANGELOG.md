@@ -1,3 +1,9 @@
+# 4.0.1 /
+
+## BUG FIXES
+
+- Fix web service client id field which didn't accept underscores nor hyphens while OpenVeo could generate ids with these characters
+
 # 4.0.0 / 2017-06-14
 
 ## BREAKING CHANGES

@@ -87,7 +87,7 @@ $settings->add(new admin_setting_configtext(
             get_string('genconfwsclientidlabel', 'block_openveo_videos'),
             get_string('genconfwsclientiddesc', 'block_openveo_videos'),
             '',
-            PARAM_ALPHANUM
+            PARAM_ALPHANUMEXT
         ));
 
 // Client secret
@@ -96,7 +96,7 @@ $settings->add(new admin_setting_configtext(
             get_string('genconfwsclientsecretlabel', 'block_openveo_videos'),
             get_string('genconfwsclientsecretdesc', 'block_openveo_videos'),
             '',
-            PARAM_ALPHANUM
+            PARAM_ALPHANUMEXT
         ));
 
 // Advanced settings fieldset
