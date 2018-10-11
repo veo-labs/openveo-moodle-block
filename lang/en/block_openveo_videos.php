@@ -21,15 +21,15 @@
 
 $string['pluginname'] = 'OpenVeo videos';
 
-// Instance configuration form
+// Instance configuration form.
 $string['inconfblocktitlelabel'] = 'Videos';
 $string['inconfblocktitlelabel_help'] = 'The title of the block as it will appear on top of the block.';
 
-// Block
+// Block.
 $string['blockvideodate'] = 'Video on {$a->month}/{$a->day}/{$a->year}';
 $string['blockvideoslink'] = 'See all videos';
 
-// Page listing videos
+// Page listing videos.
 $string['listtitle'] = 'All videos of course "{$a}"';
 $string['listsettingstitle'] = 'Block title';
 $string['listsettingslink'] = 'See all videos';
@@ -45,13 +45,13 @@ $string['listvideounvalidate'] = 'Unvalidate';
 $string['listvalidatedvideostitle'] = 'Video(s) validated';
 $string['listnotvalidatedvideostitle'] = 'Video(s) to validate';
 
-// Player
+// Player.
 $string['playertitle'] = '{$a}';
 $string['playerinvalidvideo'] = 'You don\'t have permission to access this video';
 $string['playeraccessrefused'] = 'You don\'t have permission to access this page';
 $string['playerinvalidcourse'] = 'The course you\'re looking for does not exist';
 
-// Capabilities
+// Capabilities.
 $string['openveo_videos:addinstance'] = 'Add a new OpenVeo videos block';
 $string['openveo_videos:edit'] = 'Edit videos associated to a course';
 

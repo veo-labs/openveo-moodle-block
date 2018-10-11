@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 // Include OpenVeo REST PHP client autoloader.
 require_once($CFG->dirroot . '/local/openveo_api/lib.php');
 
-use Openveo\Client\Client as OpenveoClient;
+use Openveo\Client\Client;
 
 /**
  * Defines a new block presenting OpenVeo videos associated to a course.
@@ -52,13 +52,13 @@ class block_openveo_videos extends block_base {
      *
      * If current user does not have the permission to visualize the bloc it won't be displayed
      *
-     * @return StdClass A PHP object with title, text and footer properties
+     * @return stdClass A PHP object with title, text and footer properties
      */
     public function get_content() {
         global $COURSE, $CFG, $DB;
 
-        // Content already generated
-        if($this->content !== NULL) {
+        // Content already generated.
+        if ($this->content !== NULL) {
             return $this->content;
         }
 
@@ -66,15 +66,14 @@ class block_openveo_videos extends block_base {
         $courseid = $COURSE->id;
         $context = context_course::instance($courseid);
 
-        // Checks if user has the permission to see the block and its
-        // content
+        // Checks if user has the permission to see the block and its content.
         $isEnrolled = is_enrolled($context);
         $hasCapabilityToEdit = has_capability('block/openveo_videos:edit', $context);
 
-        // User has the permission to see the block
-        // All enrolled users can see the block
-        // If a user is not enrolled, he can not see the block unless he can edit it
-        if(!empty($courseid) && ($isEnrolled || $hasCapabilityToEdit)) {
+        // User has the permission to see the block.
+        // All enrolled users can see the block.
+        // If a user is not enrolled, he can not see the block unless he can edit it.
+        if (!empty($courseid) && ($isEnrolled || $hasCapabilityToEdit)) {
             $this->content = new StdClass();
             $serverurl = rtrim(get_config('local_openveo_api', 'webserviceurl'), '/');
             $clientid = get_config('local_openveo_api', 'webserviceclientid');
@@ -93,75 +92,84 @@ class block_openveo_videos extends block_base {
                 ];
                 $query = http_build_query($param, '', '&');
 
-                // Make an authentication to the OpenVeo Web Service
-                $client = new OpenveoClient($serverurl, $clientid, $clientsecret, $servercertificate);
+                // Make an authentication to the OpenVeo Web Service.
+                $client = new Client($serverurl, $clientid, $clientsecret, $servercertificate);
 
-                $response = $client->get('/publish/videos?' . $query);
+                $response = $client->get("/publish/videos?$query");
 
                 $validatedvideos = $DB->get_records('block_openveo_videos', array('isvalidated' => 1, 'courseid' => $COURSE->idnumber));
 
-                // Got a list of videos
-                if(isset($response->entities) && !empty($response->entities)) {
+                // Got a list of videos.
+                if (isset($response->entities) && !empty($response->entities)) {
                     $videos = $response->entities;
                     $videovalidated = false;
-                    $video = null;
+                    $focusedvideo = null;
 
-                    // There is, at least, one validated video
-                    if(!empty($validatedvideos)) {
+                    // There is, at least, one validated video.
+                    if (!empty($validatedvideos)) {
 
-                        // Iterate through videos
-                        for($i = 0 ; $i < sizeof($videos) ; $i++) {
+                        // Iterate through videos.
+                        foreach ($videos as $video) {
 
-                            // Search video in validated videos
-                            foreach($validatedvideos as $validatedvideo) {
-                                if($validatedvideo->isvalidated == 1 && $validatedvideo->videoid === $videos[$i]->id) {
-                                    $video = $videos[$i];
+                            // Search video in validated videos.
+                            foreach ($validatedvideos as $validatedvideo) {
+                                if ($validatedvideo->isvalidated == 1 && $validatedvideo->videoid === $video->id) {
+                                    $focusedvideo = $video;
                                     $videovalidated = true;
                                     break;
                                 }
                             }
 
-                            if($videovalidated)
+                            if ($videovalidated) {
                                 break;
+                            }
                         }
                     }
 
-                    // Url for the list of videos associated to this course id
-                    $videosurl = $CFG->wwwroot.'/blocks/openveo_videos/view.php?courseid='.$courseid;
+                    // Url for the list of videos associated to this course id.
+                    $videosurl = "{$CFG->wwwroot}/blocks/openveo_videos/view.php?courseid=$courseid";
 
-                    if(!empty($video) && $videovalidated) {
+                    if (!empty($focusedvideo) && $videovalidated) {
 
-                        // Got a video for the block
-                        // Display block
+                        // Got a video for the block.
+                        // Display block.
 
-                        // Path to the video
-                        $videopath = $CFG->wwwroot.'/blocks/openveo_videos/player.php?courseid='.$courseid.'&videoid='.$video->id;
+                        // Path to the video.
+                        $videopath = "{$CFG->wwwroot}/blocks/openveo_videos/player.php?courseid=$courseid&videoid={$focusedvideo->id}";
 
-                        // Video thumbnail
-                        $thumbnailpath = isset($video->thumbnail) ? $video->thumbnail : null;
+                        // Video thumbnail.
+                        $thumbnailpath = isset($focusedvideo->thumbnail) ? $focusedvideo->thumbnail : null;
 
-                        // Build video date
-                        $videomoodledate = usergetdate($video->date/1000);
+                        // Build video date.
+                        $videomoodledate = usergetdate($focusedvideo->date / 1000);
                         $videodate = new StdClass();
-                        $videodate->day = ($videomoodledate['mday'] < 10) ? '0'.$videomoodledate['mday'] : $videomoodledate['mday'];
-                        $videodate->month = ($videomoodledate['mon'] < 10) ? '0'.$videomoodledate['mon'] : $videomoodledate['mon'];
+                        $videodate->day = ($videomoodledate['mday'] < 10) ? "0{$videomoodledate['mday']}" : $videomoodledate['mday'];
+                        $videodate->month = ($videomoodledate['mon'] < 10) ? "0{$videomoodledate['mon']}" : $videomoodledate['mon'];
                         $videodate->year = $videomoodledate['year'];
 
-                        // Build content
-                        $this->content->text = $this->render_block($video->title, $video->description, $videodate, $videosurl, $videopath, $thumbnailpath, $videovalidated);
+                        // Build content.
+                        $this->content->text = $this->render_block(
+                                $focusedvideo->title,
+                                $focusedvideo->description,
+                                $videodate,
+                                $videosurl,
+                                $videopath,
+                                $thumbnailpath,
+                                $videovalidated
+                        );
 
-                    } else if($hasCapabilityToEdit) {
+                    } else if ($hasCapabilityToEdit) {
 
-                        // No video for the block but there are videos associated to the course
-                        // Display an empty block with a link to the list of videos
+                        // No video for the block but there are videos associated to the course.
+                        // Display an empty block with a link to the list of videos.
 
                         $this->content->text = $this->render_block(null, null, null, $videosurl);
+
                     }
                 }
-            }
-            catch(Exception $e) {
+            } catch(Exception $e) {
 
-                // TODO Log the error
+                // TODO Log the error.
 
             }
 
@@ -191,7 +199,7 @@ class block_openveo_videos extends block_base {
      * @return array A list of formats with a boolean as value
      */
     public function applicable_formats() {
-      return array('course-view' => true);
+        return array('course-view' => true);
     }
 
     /**
@@ -223,9 +231,10 @@ class block_openveo_videos extends block_base {
      * @param string $videothumb The url to the video thumbnail
      * @param bool $videovalidated true if video is validated, false otherwise
      */
-    private function render_block($videotitle = null, $videodescription = null, $videodate = null, $videosurl = null, $videopath = null, $videothumb = null, $videovalidated = false) {
+    private function render_block($videotitle = null, $videodescription = null, $videodate = null, $videosurl = null, $videopath = null, $videothumb = null,
+                                  $videovalidated = false) {
         global $CFG;
-        $pluginPath = $CFG->wwwroot.'/blocks/openveo_videos/';
+        $pluginPath = "{$CFG->wwwroot}/blocks/openveo_videos/";
         ob_start();
         require_once(__DIR__.'/templates/block.tpl.php');
         $output = ob_get_contents();

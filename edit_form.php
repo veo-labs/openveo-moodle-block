@@ -30,20 +30,21 @@ class block_openveo_videos_edit_form extends block_edit_form {
      */
     protected function specific_definition($mform) {
 
-        // Create a fieldset with a legend
+        // Create a fieldset with a legend.
         $mform->addElement('header', 'config_header', get_string('blocksettings', 'block'));
 
-        // Add an input text element to form
+        // Add an input text element to form.
         $mform->addElement('text', 'config_title', get_string('inconfblocktitlelabel', 'block_openveo_videos'));
 
-        // Add help button
+        // Add help button.
         $mform->addHelpButton('config_title', 'inconfblocktitlelabel', 'block_openveo_videos');
 
-        // Set input text default value
+        // Set input text default value.
         $mform->setDefault('config_title', get_string('inconfblocktitlelabel', 'block_openveo_videos'));
 
-        // Clean title to plain text while submitting
+        // Clean title to plain text while submitting.
         $mform->setType('config_title', PARAM_TEXT);
+
     }
 
 }

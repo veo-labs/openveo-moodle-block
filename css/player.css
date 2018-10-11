@@ -1,2 +1,6 @@
 /* Player iframe */
-.ov-player-content iframe{ width: 100%; height: 600px; border: 0; }
+.ov-player-content iframe {
+    width: 100%;
+    height: 600px;
+    border: 0;
+}

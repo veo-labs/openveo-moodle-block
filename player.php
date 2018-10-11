@@ -41,54 +41,54 @@ function block_openveo_videos_render_player($videourl) {
     return $output;
 }
 
-// Requires params "courseid" and "videoid" to continue
+// Requires params "courseid" and "videoid" to continue.
 $courseid = required_param('courseid', PARAM_INT);
 $videoid = required_param('videoid', PARAM_TEXT);
 
-// Retrieve course information
-if(!$course = $DB->get_record('course', array('id' => $courseid))) {
+// Retrieve course information.
+if (!$course = $DB->get_record('course', array('id' => $courseid))) {
     print_error('playerinvalidcourse', 'block_openveo_videos');
 }
 
-// Checks if user has access to the page or not
+// Checks if user has access to the page or not.
 require_login($course);
 $context = context_course::instance($COURSE->id);
 $isEnrolled = is_enrolled($context);
 $hasCapabilityToEdit = has_capability('block/openveo_videos:edit', $context);
 
-// User can't see this page
-// Only enrolled or block editors can see the player
-if(!$isEnrolled && !$hasCapabilityToEdit) {
+// User can't see this page.
+// Only enrolled or block editors can see the player.
+if (!$isEnrolled && !$hasCapabilityToEdit) {
     print_error('playeraccessrefused', 'block_openveo_videos');
 }
 
 $video = $DB->get_record('block_openveo_videos', array('videoid' => $videoid, 'courseid' => $COURSE->idnumber));
 
-// Checks if video is validated
-// Video does not exist or user can't see it
-if(((!$video && !$hasCapabilityToEdit) || ($video && $video->isvalidated == 0 && !$hasCapabilityToEdit))) {
+// Checks if video is validated.
+// Video does not exist or user can't see it.
+if (((!$video && !$hasCapabilityToEdit) || ($video && $video->isvalidated == 0 && !$hasCapabilityToEdit))) {
     print_error('playerinvalidvideo', 'block_openveo_videos');
 }
 
-// Retrieve OpenVeo serveur configuration
+// Retrieve OpenVeo serveur configuration.
 $serverurl = rtrim(get_config('local_openveo_api', 'cdnurl'), '/');
 
-// Build video url
-$videourl = $serverurl.'/publish/video/'.$videoid.'?fullscreen';
+// Build video url.
+$videourl = "$serverurl/publish/video/$videoid?fullscreen";
 
-// Set page url to call when returning to this page
+// Set page url to call when returning to this page.
 $PAGE->set_url('/blocks/openveo_videos/player.php', array('courseid' => $courseid, 'videoid' => $videoid));
 
-// Include player css
+// Include player css.
 $PAGE->requires->css('/blocks/openveo_videos/css/player.css');
 
-// Set page layout
+// Set page layout.
 $PAGE->set_pagelayout('standard');
 
-// Set page title
+// Set page title.
 $PAGE->set_heading(get_string('playertitle', 'block_openveo_videos', $course->shortname));
 
-// Set breadcrumb
+// Set breadcrumb.
 $settingsnode = $PAGE->settingsnav->add(get_string('listsettingstitle', 'block_openveo_videos'));
 $editurl = new moodle_url('/blocks/openveo_videos/view.php', array('courseid' => $courseid));
 $editnode = $settingsnode->add(get_string('listsettingslink', 'block_openveo_videos'), $editurl);
