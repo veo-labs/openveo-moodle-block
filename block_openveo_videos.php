@@ -204,7 +204,7 @@ class block_openveo_videos extends block_base {
     }
 
     /**
-     * Informs Moodle that the block has a global ocnfiguration file.
+     * Informs Moodle that the block has a global configuration file.
      *
      * @return bool true to tell Moodle about the settings.php file
      */
