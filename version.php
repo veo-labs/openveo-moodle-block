@@ -16,3 +16,6 @@ $plugin->version = 2017111400;
 $plugin->requires = 2013051409;
 $plugin->maturity = MATURITY_STABLE;
 $plugin->release = '4.0.1';
+$plugin->dependencies = array(
+    'local_openveo_api' => 2018073100
+);

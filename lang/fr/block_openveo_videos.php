@@ -13,33 +13,6 @@
 
 $string['pluginname'] = 'Vidéos OpenVeo';
 
-// Global server configuration form
-$string['genconfheader'] = 'Configuration du serveur';
-$string['genconfdesc'] = 'Configurer l\'accès au serveur OpenVeo. Les vidéos de cours sont stockées sur le serveur OpenVeo.';
-$string['genconfserverurllabel'] = 'Adresse du serveur';
-$string['genconfserverurldesc'] = 'L\'adresse du serveur HTTP(S) d\'OpenVeo (ex : https://127.0.0.1)';
-
-// Global Web Service configuration form
-$string['genconfwsheader'] = 'Configuration du Web Service';
-$string['genconfwsdesc'] = 'Configurer l\'accès au Web Service OpenVeo. Les vidéos de cours sont stockées sur le serveur OpenVeo. Le plugin "OpenVeo videos" pour Moodle utilise le Web Service OpenVeo afin de récupérer les vidéos associées à un cours. Tous les champs doivent être renseignés pour récupérer la liste des vidéos sur le serveur OpenVeo. Si vous n\'avez pas toutes les informations nécessaires pour remplir le formulaire, merci de contacter l\'administrateur d\'OpenVeo.';
-$string['genconfwsserverurllabel'] = 'Adresse du Web Service';
-$string['genconfwsserverurldesc'] = 'L\'adresse du Web Service HTTP(S) d\'OpenVeo (ex : https://127.0.0.1:1443)';
-$string['genconfwsservercertificatelabel'] = 'Certificat du Web Service OpenVeo';
-$string['genconfwsservercertificatedesc'] = 'Chemin absolu du certificat du Web Service OpenVeo si HTTPS (ex : /etc/ssl/certs/openveo-ws.pem)';
-$string['genconfwsclientidlabel'] = 'Identifiant client';
-$string['genconfwsclientiddesc'] = 'Identifiant client du plugin pour accéder au Web Service OpenVeo (ex :  7c6892011e67ca05be3754137308a01a27ade9f3)';
-$string['genconfwsclientsecretlabel'] = 'Secret client';
-$string['genconfwsclientsecretdesc'] = 'Secret client du plugin pour accéder au Web Service OpenVeo (ex : 128f5fd5d980fa7f261bc1592f7f3a44c0e5fc42)';
-
-// Global advanced configuration form
-$string['genconfadvheader'] = 'Configuration avancée du Web Service';
-$string['genconfadvdesc'] = 'Ces paramètres ne doivent être modifiés que par un administrateur OpenVeo. Changer ces paramètres peut empêcher le bon fonctionnement du bloc.';
-$string['genconfadvdescbadparams'] = 'La configuration avancée du Web service n\'est affichée que lorsque le plug-in peut se connecter au Web Service. Si la configuration avancée n\'aparait pas aprés enregistrement de la configuration, veuillez vérifier les informations renseignées ci-dessus et que, côté OpenVeo, le client possède bien la permission "Récupérer les propriétés".';
-$string['genconfadvvideospathlabel'] = 'Chemin vidéos';
-$string['genconfadvvideospathdesc'] = 'Le point d\'entrée Web Service pour obtenir la liste des vidéos';
-$string['genconfadvvideoproplabel'] = 'Propriété vidéo';
-$string['genconfadvvideopropdesc'] = 'La propriété de la vidéo Openveo contenant l\'id du cours';
-
 // Instance configuration form
 $string['inconfblocktitlelabel'] = 'Vidéos';
 $string['inconfblocktitlelabel_help'] = 'Le titre du bloc tel qu\'il apparaîtra en haut du bloc.';
@@ -73,3 +46,19 @@ $string['playerinvalidcourse'] = 'Le cours que vous recherchez n\'existe pas';
 // Capabilities
 $string['openveo_videos:addinstance'] = 'Ajouter un nouveau block OpenVeo vidéos';
 $string['openveo_videos:edit'] = 'Editer les vidéos associées à un cours';
+
+// Settings page.
+$string['settingstitle'] = 'OpenVeo Videos Bloc configuration';
+$string['settingslinktitle'] = 'OpenVeo Videos';
+$string['settingsvideocustompropertylabel'] = 'Propriété personnalisée OpenVeo';
+$string['settingsvideocustomproperty'] = 'Propriété personnalisée OpenVeo';
+$string['settingsvideocustomproperty_help'] = 'Choisissez la propriété personnalisée OpenVeo qui contient l\'id du cours Moodle. Vous pouvez ensuite associer une vidéo OpenVeo à un cours en précisant l\'id du cours dans cette propriété personnalisée.';
+$string['settingsvideocustompropertychoose'] = 'Choisir...';
+$string['settingssubmitlabel'] = 'Enregistrer les modifications';
+
+// Errors.
+$string['errorlocalpluginnotconfigured'] = 'Le plugin local "OpenVeo API" n\'est pas configuré.';
+$string['errornocustomproperties'] = 'Aucune propriété personnalisée n\'est configurée sur OpenVeo Publish.';
+
+// Events.
+$string['eventgettingcustompropertiesfailed'] = 'Récupération des propriétés personnalisées echouée';

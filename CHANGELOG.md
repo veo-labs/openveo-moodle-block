@@ -1,3 +1,10 @@
+# 5.0.0 / YYYY-MM-DD
+
+## BREAKING CHANGES
+
+- OpenVeo Videos Block now requires OpenVeo Moodle API plugin to be installed
+- OpenVeo Videos Block now requires PHP >= 7
+
 # 4.0.1 / 2017-11-14
 
 ## BUG FIXES

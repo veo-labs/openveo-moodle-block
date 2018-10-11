@@ -12,15 +12,18 @@ OpenVeo Moodle Block adds the following features:
 # Getting Started
 
 ## Prerequisites
+
+- PHP >= 7
 - Install Openveo CMS with Openveo Publish 4.x.x
 - Install Moodle version >2.9.6
+- Install [OpenVeo Moodle API](https://github.com/veo-labs/openveo-moodle-api) >=1.*
+- Make sure OpenVeo Moodle API plugin is configured
+- OpenVeo web service client for Moodle must have scopes **Get properties** and **Get videos**
 
 ## Installation
+
 - Download a zip file from this repository
 - Unzip it and rename **openveo-moodle-block-\*** directory into **openveo_videos**
-- Download latest stable [OpenVeo Rest PHP client](https://github.com/veo-labs/openveo-rest-php-client) as a zip file
-- Unzip the **openveo-rest-php-client.zip** file in **openveo_videos/lib** folder
-- Rename **openveo_videos/lib/openveo-rest-php-client-\*** into **openveo_videos/lib/openveo-rest-php-client**
 - Move your **openveo_videos** folder into **MOODLE_ROOT_PATH/blocks/** where MOODLE_ROOT_PATH is your Moodle installation folder
 - In your Moodle site (as admin) go to **Site administration > Notifications**: you should get a message saying the plugin is installed
 

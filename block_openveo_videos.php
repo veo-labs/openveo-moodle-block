@@ -9,7 +9,11 @@
  * @license AGPL
  */
 
-require_once('require_openveo.php');
+defined('MOODLE_INTERNAL') || die();
+
+// Include OpenVeo REST PHP client autoloader.
+require_once($CFG->dirroot . '/local/openveo_api/lib.php');
+
 use Openveo\Client\Client as OpenveoClient;
 
 /**
@@ -59,13 +63,11 @@ class block_openveo_videos extends block_base {
         // If a user is not enrolled, he can not see the block unless he can edit it
         if(!empty($courseid) && ($isEnrolled || $hasCapabilityToEdit)) {
             $this->content = new StdClass();
-
-            // Retrieve block configuration
-            $serverurl = rtrim(get_config('openveo_videos', 'wsserverurl'), '/');
-            $servercertificate = get_config('openveo_videos', 'wsservercertificate');
-            $clientid = get_config('openveo_videos', 'wsclientid');
-            $clientsecret = get_config('openveo_videos', 'wsclientsecret');
-            $videoproperty = get_config('openveo_videos', 'videoproperty');
+            $serverurl = rtrim(get_config('local_openveo_api', 'webserviceurl'), '/');
+            $clientid = get_config('local_openveo_api', 'webserviceclientid');
+            $clientsecret = get_config('local_openveo_api', 'webserviceclientsecret');
+            $servercertificate = get_config('local_openveo_api', 'webservicecertificatefilepath');
+            $videoproperty = get_config('block_openveo_videos', 'videocustomproperty');
 
             try {
                 $param = [
@@ -195,21 +197,6 @@ class block_openveo_videos extends block_base {
      */
     function has_config() {
         return true;
-    }
-
-    /**
-     * Removes block general configuration when uninstalling.
-     */
-    function before_delete() {
-        unset_config('serverurl', 'openveo_videos');
-        unset_config('clientid', 'openveo_videos');
-        unset_config('clientsecret', 'openveo_videos');
-        unset_config('wsserverurl', 'openveo_videos');
-        unset_config('wsservercertificate', 'openveo_videos');
-        unset_config('wsclientid', 'openveo_videos');
-        unset_config('wsclientsecret', 'openveo_videos');
-        unset_config('wsserverurl', 'openveo_videos');
-        unset_config('videoproperty', 'openveo_videos');
     }
 
     /**

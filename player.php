@@ -58,7 +58,7 @@ if(((!$video && !$hasCapabilityToEdit) || ($video && $video->isvalidated == 0 &&
 }
 
 // Retrieve OpenVeo serveur configuration
-$serverurl = rtrim(get_config('openveo_videos', 'serverurl'), '/');
+$serverurl = rtrim(get_config('local_openveo_api', 'cdnurl'), '/');
 
 // Build video url
 $videourl = $serverurl.'/publish/video/'.$videoid.'?fullscreen';

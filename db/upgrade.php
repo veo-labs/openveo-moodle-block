@@ -45,5 +45,14 @@ function xmldb_block_openveo_videos_upgrade($oldversion){
       unset_config('serverport', 'openveo_videos');
     }
 
+    // Remove settings which now belongs to OpenVeo Moodle API plugin.
+    if ($oldversion < 2018101100) {
+        unset_config('serverurl', 'openveo_videos');
+        unset_config('wsserverurl', 'openveo_videos');
+        unset_config('wsservercertificate', 'openveo_videos');
+        unset_config('wsclientid', 'openveo_videos');
+        unset_config('wsclientsecret', 'openveo_videos');
+    }
+
     return true;
 }

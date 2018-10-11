@@ -12,6 +12,12 @@
  */
 
 require_once('../../config.php');
+
+// Include OpenVeo REST PHP client autoloader.
+require_once($CFG->dirroot . '/local/openveo_api/lib.php');
+
+use Openveo\Client\Client as OpenveoClient;
+
 global $DB, $OUTPUT, $PAGE, $USER, $CFG, $FULLSCRIPT;
 
 /**
@@ -94,15 +100,11 @@ if(!empty($action) && !empty($videoid) && $hasCapabilityToEdit){
 }
 
 // Retrieve block configuration
-$wsserverurl = get_config('openveo_videos', 'wsserverurl');
-$wsservercertificate = get_config('openveo_videos', 'wsservercertificate');
-$clientid = get_config('openveo_videos', 'wsclientid');
-$clientsecret = get_config('openveo_videos', 'wsclientsecret');
-$videoproperty = get_config('openveo_videos', 'videoproperty');
-
-// Get the list of videos
-require_once('require_openveo.php');
-use Openveo\Client\Client as OpenveoClient;
+$wsserverurl = get_config('local_openveo_api', 'webserviceurl');
+$clientid = get_config('local_openveo_api', 'webserviceclientid');
+$clientsecret = get_config('local_openveo_api', 'webserviceclientsecret');
+$wsservercertificate = get_config('local_openveo_api', 'webservicecertificatefilepath');
+$videoproperty = get_config('block_openveo_videos', 'videocustomproperty');
 
 $pluginPath = $CFG->wwwroot.'/blocks/openveo_videos/';
 $tableofvideostovalidate = new html_table();
