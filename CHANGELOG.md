@@ -5,6 +5,10 @@
 - OpenVeo Videos Block now requires OpenVeo Moodle API plugin to be installed
 - OpenVeo Videos Block now requires PHP >= 7
 
+## BUG FIXES
+
+- License is now in compliance with Moodle license
+
 # 4.0.1 / 2017-11-14
 
 ## BUG FIXES
