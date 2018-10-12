@@ -28,6 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot . '/local/openveo_api/lib.php');
 
 use Openveo\Client\Client;
+use block_openveo_videos\output\openveo_videos_block;
 
 /**
  * Defines a new block presenting OpenVeo videos associated to a course.
@@ -55,7 +56,7 @@ class block_openveo_videos extends block_base {
      * @return stdClass A PHP object with title, text and footer properties
      */
     public function get_content() {
-        global $COURSE, $CFG, $DB;
+        global $COURSE, $CFG, $DB, $PAGE;
 
         // Content already generated.
         if ($this->content !== NULL) {
@@ -65,6 +66,7 @@ class block_openveo_videos extends block_base {
         $this->content = null;
         $courseid = $COURSE->id;
         $context = context_course::instance($courseid);
+        $renderer = $PAGE->get_renderer('block_openveo_videos');
 
         // Checks if user has the permission to see the block and its content.
         $isEnrolled = is_enrolled($context);
@@ -126,46 +128,26 @@ class block_openveo_videos extends block_base {
                         }
                     }
 
-                    // Url for the list of videos associated to this course id.
-                    $videosurl = "{$CFG->wwwroot}/blocks/openveo_videos/view.php?courseid=$courseid";
+                    $openveovideosblock = null;
 
                     if (!empty($focusedvideo) && $videovalidated) {
 
                         // Got a video for the block.
                         // Display block.
 
-                        // Path to the video.
-                        $videopath = "{$CFG->wwwroot}/blocks/openveo_videos/player.php?courseid=$courseid&videoid={$focusedvideo->id}";
-
-                        // Video thumbnail.
-                        $thumbnailpath = isset($focusedvideo->thumbnail) ? $focusedvideo->thumbnail : null;
-
-                        // Build video date.
-                        $videomoodledate = usergetdate($focusedvideo->date / 1000);
-                        $videodate = new StdClass();
-                        $videodate->day = ($videomoodledate['mday'] < 10) ? "0{$videomoodledate['mday']}" : $videomoodledate['mday'];
-                        $videodate->month = ($videomoodledate['mon'] < 10) ? "0{$videomoodledate['mon']}" : $videomoodledate['mon'];
-                        $videodate->year = $videomoodledate['year'];
-
-                        // Build content.
-                        $this->content->text = $this->render_block(
-                                $focusedvideo->title,
-                                $focusedvideo->description,
-                                $videodate,
-                                $videosurl,
-                                $videopath,
-                                $thumbnailpath,
-                                $videovalidated
-                        );
+                        $openveovideosblock = new openveo_videos_block($focusedvideo, $courseid, "{$CFG->wwwroot}/blocks/openveo_videos");
+                        $this->content->text = $renderer->render($openveovideosblock);
 
                     } else if ($hasCapabilityToEdit) {
 
                         // No video for the block but there are videos associated to the course.
                         // Display an empty block with a link to the list of videos.
 
-                        $this->content->text = $this->render_block(null, null, null, $videosurl);
+                        $openveovideosblock = new openveo_videos_block(null, $courseid, "{$CFG->wwwroot}/blocks/openveo_videos");
+                        $this->content->text = $renderer->render($openveovideosblock);
 
                     }
+
                 }
             } catch(Exception $e) {
 
@@ -218,28 +200,6 @@ class block_openveo_videos extends block_base {
      */
     function has_config() {
         return true;
-    }
-
-    /**
-     * Renders the block using the block template.
-     *
-     * @param string $videotitle The video title
-     * @param string $videodescription The video description
-     * @param stdClass $videodate The video date with day, month and year
-     * @param string $videosurl Url to the list of videos associated to the course
-     * @param string $videopath The url to the video
-     * @param string $videothumb The url to the video thumbnail
-     * @param bool $videovalidated true if video is validated, false otherwise
-     */
-    private function render_block($videotitle = null, $videodescription = null, $videodate = null, $videosurl = null, $videopath = null, $videothumb = null,
-                                  $videovalidated = false) {
-        global $CFG;
-        $pluginPath = "{$CFG->wwwroot}/blocks/openveo_videos/";
-        ob_start();
-        require_once(__DIR__.'/templates/block.tpl.php');
-        $output = ob_get_contents();
-        ob_end_clean();
-        return $output;
     }
 
 }

@@ -48,4 +48,15 @@ class renderer extends plugin_renderer_base {
         return parent::render_from_template('block_openveo_videos/settings_page', $data);
     }
 
+    /**
+     * Renders the OpenVeo Videos Block using template engine.
+     *
+     * @param openveo_videos_block $block The OpenVeo Videos Block
+     * @return string The computed HTML of the block
+     */
+    public function render_openveo_videos_block(openveo_videos_block $block) : string {
+        $data = $block->export_for_template($this);
+        return parent::render_from_template('block_openveo_videos/openveo_videos_block', $data);
+    }
+
 }
