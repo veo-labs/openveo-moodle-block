@@ -62,8 +62,6 @@ if (((!$video && !$hasCapabilityToEdit) || ($video && $video->isvalidated == 0 &
 $renderer = $PAGE->get_renderer('block_openveo_videos');
 $playerpage = new player_page($videoid, $courseid, $PAGE);
 
-$PAGE->set_heading(get_string('playertitle', 'block_openveo_videos', $course->shortname));
-
 echo $OUTPUT->header();
 echo format_text($renderer->render($playerpage), FORMAT_HTML);
 echo $OUTPUT->footer();

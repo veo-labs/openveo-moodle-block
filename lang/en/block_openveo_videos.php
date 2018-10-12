@@ -67,6 +67,8 @@ $string['settingssubmitlabel'] = 'Save changes';
 // Errors.
 $string['errorlocalpluginnotconfigured'] = 'Local plugin "OpenVeo API" is not configured.';
 $string['errornocustomproperties'] = 'No custom property configured in OpenVeo Publish.';
+$string['errorvideonotreachable'] = 'Video {$a} couldn\'t be fetched.';
 
 // Events.
 $string['eventgettingcustompropertiesfailed'] = 'Getting custom properties failed';
+$string['eventgettingopenveovideofailed'] = 'Getting OpenVeo video failed';
