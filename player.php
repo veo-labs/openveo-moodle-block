@@ -25,21 +25,10 @@
  */
 
 require_once('../../config.php');
-global $DB, $OUTPUT, $PAGE, $USER, $CFG, $FULLSCRIPT;
 
-/**
- * Renders the player using embedded OpenVeo player.
- *
- * @param string $videourl The url of the OpenVeo player
- */
-function block_openveo_videos_render_player($videourl) {
-    global $CFG;
-    ob_start();
-    require_once(__DIR__.'/templates/player.tpl.php');
-    $output = ob_get_contents();
-    ob_end_clean();
-    return $output;
-}
+use block_openveo_videos\output\player_page;
+
+global $DB, $OUTPUT, $PAGE;
 
 // Requires params "courseid" and "videoid" to continue.
 $courseid = required_param('courseid', PARAM_INT);
@@ -70,30 +59,11 @@ if (((!$video && !$hasCapabilityToEdit) || ($video && $video->isvalidated == 0 &
     print_error('playerinvalidvideo', 'block_openveo_videos');
 }
 
-// Retrieve OpenVeo serveur configuration.
-$serverurl = rtrim(get_config('local_openveo_api', 'cdnurl'), '/');
+$renderer = $PAGE->get_renderer('block_openveo_videos');
+$playerpage = new player_page($videoid, $courseid, $PAGE);
 
-// Build video url.
-$videourl = "$serverurl/publish/video/$videoid?fullscreen";
-
-// Set page url to call when returning to this page.
-$PAGE->set_url('/blocks/openveo_videos/player.php', array('courseid' => $courseid, 'videoid' => $videoid));
-
-// Include player css.
-$PAGE->requires->css('/blocks/openveo_videos/css/player.css');
-
-// Set page layout.
-$PAGE->set_pagelayout('standard');
-
-// Set page title.
 $PAGE->set_heading(get_string('playertitle', 'block_openveo_videos', $course->shortname));
 
-// Set breadcrumb.
-$settingsnode = $PAGE->settingsnav->add(get_string('listsettingstitle', 'block_openveo_videos'));
-$editurl = new moodle_url('/blocks/openveo_videos/view.php', array('courseid' => $courseid));
-$editnode = $settingsnode->add(get_string('listsettingslink', 'block_openveo_videos'), $editurl);
-$editnode->make_active();
-
 echo $OUTPUT->header();
-echo block_openveo_videos_render_player($videourl);
+echo format_text($renderer->render($playerpage), FORMAT_HTML);
 echo $OUTPUT->footer();

@@ -1,6 +1,10 @@
-/* Player iframe */
-.ov-player-content iframe {
-    width: 100%;
-    height: 600px;
-    border: 0;
+/*
+ * OpenVeo Videos Block player page does not display a player but the OpenVeo Moodle Player will.
+ * The OpenVeo Moodle Player needs player dimensions in the URL or will get it from Moodle default configuration of players.
+ * We want OpenVeo Videos Block player page to display the OpenVeo Player in full width. However a bug in Moodle unables setting the player dimension in percentage.
+ * Thus, until bug is fixed, dimension of the player have to be forced using CSS.
+ */
+.block-openveo-videos-player-page iframe {
+    width: 100% !important;
+    height: 600px !important;
 }

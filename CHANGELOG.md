@@ -4,6 +4,7 @@
 
 - OpenVeo Videos Block now requires OpenVeo Moodle API plugin to be installed
 - OpenVeo Videos Block now requires PHP >= 7
+- The player page won't display the player anymore unless OpenVeo Moodle Player plugin is installed. If OpenVeo Moodle Player is not installed a link to the OpenVeo video will be displayed instead
 
 ## NEW FEATURES
 

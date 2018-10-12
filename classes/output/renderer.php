@@ -49,6 +49,17 @@ class renderer extends plugin_renderer_base {
     }
 
     /**
+     * Renders the player page using template engine.
+     *
+     * @param player_page $page The player page
+     * @return string The computed HTML of the player page
+     */
+    public function render_player_page(player_page $page) : string {
+        $data = $page->export_for_template($this);
+        return parent::render_from_template('block_openveo_videos/player_page', $data);
+    }
+
+    /**
      * Renders the OpenVeo Videos Block using template engine.
      *
      * @param openveo_videos_block $block The OpenVeo Videos Block
