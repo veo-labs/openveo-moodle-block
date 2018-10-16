@@ -10,6 +10,7 @@
 
 - An OpenVeo icon is now displayed next to the plugin name in administration interface
 - Set player page title and header to the video title instead of the course name
+- Set manage page title (&lt;title&gt; tag)
 
 ## BUG FIXES
 

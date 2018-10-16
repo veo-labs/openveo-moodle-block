@@ -169,6 +169,7 @@ class manage_page implements renderable, templatable {
         $this->page->requires->css('/blocks/openveo_videos/css/list.css');
         $this->page->set_pagelayout('standard');
         $this->page->set_heading(get_string('listtitle', 'block_openveo_videos', $course->shortname));
+        $this->page->set_title(get_string('listtitle', 'block_openveo_videos', $course->shortname));
 
         // Set breadcrumb.
         $settingsnode = $this->page->settingsnav->add(get_string('listsettingstitle', 'block_openveo_videos'));
