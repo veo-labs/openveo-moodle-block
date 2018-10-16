@@ -16,6 +16,7 @@
 ## BUG FIXES
 
 - License is now in compliance with Moodle license
+- The label of the title field, when editing a bloc instance, is now "Title" instead of "Videos"
 
 # 4.0.1 / 2017-11-14
 

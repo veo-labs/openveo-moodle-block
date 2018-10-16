@@ -25,8 +25,9 @@
 $string['pluginname'] = 'Vidéos OpenVeo';
 
 // Instance configuration form.
-$string['inconfblocktitlelabel'] = 'Vidéos';
+$string['inconfblocktitlelabel'] = 'Titre';
 $string['inconfblocktitlelabel_help'] = 'Le titre du bloc tel qu\'il apparaîtra en haut du bloc.';
+$string['inconfblockdefaulttitle'] = 'Vidéos';
 
 // Block.
 $string['blockvideodate'] = 'Vidéo du {$a->day}/{$a->month}/{$a->year}';
