@@ -100,7 +100,7 @@ class settings_page implements renderable, templatable {
 
         if (sizeof($customproperties) <= 0) {
 
-            // No video platforms configured in OpenVeo Publish. Abort.
+            // No custom property configured in OpenVeo Publish. Abort.
 
             throw new moodle_exception('errornocustomproperties', 'block_openveo_videos');
 
