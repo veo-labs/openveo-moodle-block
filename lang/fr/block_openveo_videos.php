@@ -71,7 +71,9 @@ $string['settingssubmitlabel'] = 'Enregistrer les modifications';
 $string['errorlocalpluginnotconfigured'] = 'Le plugin local "OpenVeo API" n\'est pas configuré.';
 $string['errornocustomproperties'] = 'Aucune propriété personnalisée n\'est configurée sur OpenVeo Publish.';
 $string['errorvideonotreachable'] = 'La vidéo {$a} n\'a pas pu être récupérée.';
+$string['errorgettingvalidatedvideosfailed'] = 'La récupération des vidéos validées du cours {$a} a échoué.';
 
 // Events.
 $string['eventgettingcustompropertiesfailed'] = 'Récupération des propriétés personnalisées echouée';
 $string['eventgettingopenveovideofailed'] = 'Récupération de la vidéo OpenVeo echouée';
+$string['eventgettingopenveocoursevideosfailed'] = 'Récupération des vidéos OpenVeo du cours échouée';

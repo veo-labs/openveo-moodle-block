@@ -60,6 +60,17 @@ class renderer extends plugin_renderer_base {
     }
 
     /**
+     * Renders the management page using template engine.
+     *
+     * @param manage_page $page The management page
+     * @return string The computed HTML of the management page
+     */
+    public function render_manage_page(manage_page $page) : string {
+        $data = $page->export_for_template($this);
+        return parent::render_from_template('block_openveo_videos/manage_page', $data);
+    }
+
+    /**
      * Renders the OpenVeo Videos Block using template engine.
      *
      * @param openveo_videos_block $block The OpenVeo Videos Block

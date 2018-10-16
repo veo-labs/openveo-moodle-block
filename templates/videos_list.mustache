@@ -1,0 +1,102 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle. If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template block_openveo_videos/videos_list
+
+    Videos list template to display and validate / unvalidate a list of OpenVeo videos.
+
+    Context variables required for this template:
+    * [hascapabilitytoedit] - Indicates if it is possible to validate / unvalidate videos
+    * picturecolumnlabel - The picture column title
+    * namecolumnlabel - The name column title
+    * datecolumnlabel - The date column title
+    * actioncolumnlabel - The action column title
+    * [videos] - The list of videos with for each video:
+        * title - The title of the video
+        * date - The date of the video
+        * url - The video page URL
+        * [thumbnailurl] - The URL of the thumbnail of the video
+        * [actionlabel] - The label of the action
+        * [actionlink] - The URL of the action
+
+    Example context (json):
+    {
+        "hascapabilitytoedit": true,
+        "picturecolumnlabel": "Picture",
+        "namecolumnlabel": "Name",
+        "datecolumnlabel": "Date",
+        "actioncolumnlabel": "Action",
+        "videos": [
+            {
+                "title": "Video title",
+                "date": "10/10/2018",
+                "url": "https://moodle.local/blocks/openveo_videos/player.php?courseid=$courseid&videoid=42",
+                "thumbnailurl": "https://openveo.local/publish/r1MBU5jqm/thumbnail.jpg",
+                "actionlabel": "Validate",
+                "actionlink": "https://moodle.local/blocks/openveo_videos/view.php?courseid=1&action=validate&videoid=42"
+            }
+        ]
+    }
+}}
+<div class="block-openveo-videos-videos-list">
+    <table class="generaltable fullwidth">
+        <thead>
+            <tr>
+                <th class="header c0" scope="col">{{picturecolumnlabel}}</th>
+                <th class="header" scope="col">{{namecolumnlabel}}</th>
+                <th class="header" scope="col">{{datecolumnlabel}}</th>
+
+                {{#hascapabilitytoedit}}
+                    <th class="header" scope="col">{{actioncolumnlabel}}</th>
+                {{/hascapabilitytoedit}}
+            </tr>
+        </thead>
+        <tbody>
+            {{#videos}}
+                <tr>
+                    <td class="c0">
+                        <a href="{{url}}" title="{{title}}">
+                            {{#thumbnailurl}}
+                                <img src="{{thumbnailurl}}" alt="{{title}}" />
+                            {{/thumbnailurl}}
+
+                            {{^thumbnailurl}}
+                                <div class="ov-placeholder"></div>
+                            {{/thumbnailurl}}
+
+                            <div class="ov-play">
+                                <div>
+                                    <div>
+                                        <div class="ov-play-icon"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </td>
+                    <td>{{title}}</td>
+                    <td>{{date}}</td>
+
+                    {{#hascapabilitytoedit}}
+                        <td>
+                            <a href="{{actionlink}}" title="{{actionlabel}}">{{actionlabel}}</a>
+                        </td>
+                    {{/hascapabilitytoedit}}
+                </tr>
+            {{/videos}}
+        </tbody>
+    </table>
+</div>
