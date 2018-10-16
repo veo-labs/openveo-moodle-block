@@ -131,7 +131,7 @@ class manage_page implements renderable, templatable {
                 // Thumbnail.
                 $video->title = $openveovideo->title;
                 $video->url = "$pluginbaseurl/player.php?courseid={$course->id}&videoid={$openveovideo->id}";
-                $video->thumbnailurl = isset($openveovideo->thumbnail) ? $openveovideo->thumbnail : null;
+                $video->thumbnailurl = isset($openveovideo->thumbnail) ? "{$openveovideo->thumbnail}?style=publish-thumb-200" : null;
 
                 // Date.
                 // Build video date.

@@ -97,7 +97,7 @@ class openveo_videos_block implements renderable, templatable {
 
             $data->focusedvideotitle = $this->focusedvideo->title;
             $data->focusedvideourl = "{$this->pluginbaseurl}/player.php?courseid={$this->courseid}&videoid={$this->focusedvideo->id}";
-            $data->focusedvideothumbnailurl = isset($this->focusedvideo->thumbnail) ? $this->focusedvideo->thumbnail : null;
+            $data->focusedvideothumbnailurl = isset($this->focusedvideo->thumbnail) ? "{$this->focusedvideo->thumbnail}?style=publish-thumb-200" : null;
             $data->focusedvideodate = get_string('blockvideodate', 'block_openveo_videos', $videodate);
 
         }
