@@ -56,7 +56,7 @@ function xmldb_block_openveo_videos_upgrade($oldversion) {
     }
 
     // Remove settings which now belongs to OpenVeo Moodle API plugin.
-    if ($oldversion < 2018101100) {
+    if ($oldversion < 2018101700) {
         unset_config('serverurl', 'openveo_videos');
         unset_config('wsserverurl', 'openveo_videos');
         unset_config('wsservercertificate', 'openveo_videos');
