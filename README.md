@@ -13,10 +13,10 @@ OpenVeo Moodle Block adds the following features:
 
 ## Prerequisites
 
-- PHP >= 7
-- Install Openveo CMS with Openveo Publish 4.x.x
-- Install Moodle version >2.9.6
-- Install [OpenVeo Moodle API](https://github.com/veo-labs/openveo-moodle-api) >=1.*
+- PHP >=7
+- Install Openveo CMS with Openveo Publish 4.0.0
+- Install Moodle version >=3.4.0
+- Install [OpenVeo Moodle API](https://github.com/veo-labs/openveo-moodle-api) >=1.0.0
 - Make sure OpenVeo Moodle API plugin is configured
 - OpenVeo web service client for Moodle must have scopes **Get properties** and **Get videos**
 
