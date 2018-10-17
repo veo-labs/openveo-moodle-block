@@ -19,7 +19,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'OpenVeo videos';
+$string['pluginname'] = 'OpenVeo Videos Block';
 
 // Instance configuration form.
 $string['inconfblocktitlelabel'] = 'Title';
