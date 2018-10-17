@@ -7,7 +7,7 @@ OpenVeo Moodle Block adds the following features:
 - Add a video block on a course to see the latest video avalaible on [Openveo Publish](https://github.com/veo-labs/openveo-publish) related to a course ID
 - List all published videos from [Openveo Publish](https://github.com/veo-labs/openveo-publish) related to a course ID
 - Administrate published videos inside Moodle to add a validation level
-- Display the OpenVeo Player with slides and chapters sync in a Moodle page
+- Display a link to the OpenVeo video, transformed into the OpenVeo Player if [OpenVeo Moodle Player](https://github.com/veo-labs/openveo-moodle-player) is installed
 
 # Getting Started
 
