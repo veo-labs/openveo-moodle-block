@@ -25,10 +25,10 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'block_openveo_videos';
-$plugin->version = 2018101700;
+$plugin->version = 2018111500;
 $plugin->requires = 2017111300;
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = '5.0.0';
+$plugin->release = '5.0.1';
 $plugin->dependencies = array(
     'local_openveo_api' => 2018101700
 );
